@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Place GH - Find your dream property in Accra</title>
+<meta name="description" content="Buy, rent, and develop property across Accra with Your Place GH. Sales and lettings, asset management, and property development from a local team in Teshie, Accra.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   YourPlaceGH - tokens locked from live site
+   Display: Poppins 700 | Body: Nunito Sans 400
+   ============================================================ */
+:root{
+  --orange:#F15A2B;
+  --orange-dark:#d8481d;
+  --ink:#0A0A0A;
+  --slate:#242C34;
+  --slate-deep:#1b2127;
+  --white:#FFFFFF;
+  --body:#404040;
+  --muted:#7A7A7A;
+  --line:#e8e8e8;
+  --bg-soft:#F6F7F9;
+  --display:'Poppins',system-ui,sans-serif;
+  --font:'Nunito Sans',system-ui,sans-serif;
+  --container:1200px;
+  --radius:4px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--body);font-size:16px;line-height:1.75;background:var(--white);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5,h6{font-family:var(--display);font-weight:400;color:var(--slate);line-height:1.15}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.container{max-width:var(--container);margin:0 auto;padding:0 24px}
+.eyebrow{font-family:var(--font);font-weight:700;text-transform:uppercase;letter-spacing:2.5px;font-size:13px;color:var(--orange);margin-bottom:14px}
+.btn{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.4px;text-transform:uppercase;padding:9px 19px;border-radius:var(--radius);border:2px solid transparent;cursor:pointer;transition:.25s}
+.btn-primary{background:var(--orange);color:#fff}
+.btn-primary:hover{background:var(--orange-dark)}
+.btn-white{background:#fff;color:var(--slate)}
+.btn-white:hover{background:var(--orange);color:#fff}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-ghost:hover{background:#fff;color:var(--slate);border-color:#fff}
+
+/* ---------- Top utility bar (single, real data) ---------- */
+.topbar{background:var(--ink);color:#cfd3d7;font-size:13.5px}
+.topbar .container{display:flex;justify-content:space-between;align-items:center;min-height:44px;flex-wrap:wrap;gap:6px}
+.topbar ul{display:flex;gap:26px;list-style:none;flex-wrap:wrap}
+.topbar li{display:flex;align-items:center;gap:8px}
+.topbar a:hover{color:var(--orange)}
+.topbar .social{gap:16px}
+.topbar .social a{color:#cfd3d7}
+.topbar .ic{width:15px;height:15px;fill:var(--orange)}
+
+/* ---------- Header ---------- */
+.site-header{position:absolute;top:44px;left:0;right:0;z-index:40;transition:.3s}
+.site-header.scrolled{position:fixed;top:0;background:var(--slate);box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;min-height:88px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:400;font-size:24px;color:#fff;letter-spacing:.5px}
+.brand .mark{width:34px;height:34px;flex:none;display:grid;place-items:center;background:var(--orange);border-radius:6px;transform:rotate(45deg)}
+.brand .mark span{transform:rotate(-45deg);font-size:18px;color:#fff;font-weight:800}
+.brand b{font-weight:400}
+.brand em{font-style:normal;color:var(--orange)}
+.nav{display:flex;align-items:center;gap:34px}
+.nav ul{display:flex;gap:30px;list-style:none}
+.nav > ul > li{position:relative}
+.nav a{color:#fff;font-family:var(--display);font-weight:500;font-size:15px;padding:10px 0;display:inline-flex;align-items:center;gap:6px}
+.nav a:hover{color:var(--orange)}
+.nav .has-sub > a:after{content:"+";font-weight:600;opacity:.8}
+.submenu{position:absolute;top:100%;left:-18px;background:#fff;min-width:190px;padding:10px 0;border-radius:var(--radius);box-shadow:0 18px 40px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s}
+.nav .has-sub:hover .submenu{opacity:1;visibility:visible;transform:translateY(0)}
+.submenu li a{display:block;color:var(--body);padding:8px 22px;font-weight:500}
+.submenu li a:hover{color:var(--orange);background:var(--bg-soft)}
+.nav-cta{background:var(--orange);color:#fff !important;padding:10px 19px !important;border-radius:var(--radius);font-weight:600}
+.nav-cta:hover{background:var(--orange-dark)}
+.burger{display:none;background:none;border:0;cursor:pointer;width:30px;height:22px;position:relative}
+.burger span{position:absolute;left:0;height:2px;width:100%;background:#fff;transition:.25s}
+.burger span:nth-child(1){top:0}.burger span:nth-child(2){top:10px}.burger span:nth-child(3){top:20px}
+
+/* ---------- Hero slider ---------- */
+.hero{position:relative;height:92vh;min-height:600px;overflow:hidden;background:var(--slate-deep)}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;background-size:cover;background-position:center}
+.slide:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,30,45,.82) 0%,rgba(20,30,45,.45) 60%,rgba(20,30,45,.3) 100%)}
+.slide.active{opacity:1}
+.slide .inner{position:relative;height:100%;display:flex;align-items:center}
+.slide .copy{max-width:680px;color:#fff}
+.slide .copy .eyebrow{color:#fff;opacity:.92;display:flex;align-items:center;gap:9px}
+.slide .copy .eyebrow svg{width:18px;height:18px;fill:var(--orange)}
+.slide h1{color:#fff;font-size:clamp(40px,6vw,76px);font-weight:400;letter-spacing:-1px;margin:6px 0 30px}
+.slide .copy.center{margin:0 auto;text-align:center}
+.slide .copy.right{margin-left:auto;text-align:right}
+.slide .copy.right .eyebrow{justify-content:flex-end}
+.hero-nav{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 18px;pointer-events:none}
+.hero-nav button{pointer-events:auto;width:56px;height:56px;border:1px solid rgba(255,255,255,.4);background:rgba(10,10,10,.18);color:#fff;font-size:22px;cursor:pointer;transition:.25s;border-radius:2px}
+.hero-nav button:hover{background:var(--orange);border-color:var(--orange)}
+.dots{position:absolute;bottom:118px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:5}
+.dots button{width:11px;height:11px;border-radius:50%;border:0;background:rgba(255,255,255,.45);cursor:pointer;transition:.25s}
+.dots button.active{background:var(--orange);width:30px;border-radius:6px}
+
+/* ---------- Search bar ---------- */
+.searchwrap{position:relative;margin-top:-30px;z-index:30}
+.searchbar{background:#fff;border-radius:var(--radius);box-shadow:0 24px 60px rgba(20,30,45,.16);display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:0;overflow:hidden;border:1px solid var(--line)}
+.searchbar .field{padding:9px 18px;border-right:1px solid var(--line)}
+.searchbar label{display:block;font-family:var(--display);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:2px}
+.searchbar select{width:100%;border:0;background:none;font-family:var(--font);font-size:13px;line-height:1.3;color:var(--slate);font-weight:600;cursor:pointer;outline:none}
+.searchbar .go{border:0;background:var(--orange);color:#fff;font-family:var(--display);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:0 18px;cursor:pointer;transition:.25s}
+.searchbar .go:hover{background:var(--orange-dark)}
+
+/* ---------- Section scaffolding ---------- */
+.section{padding:110px 0}
+.section.soft{background:var(--bg-soft)}
+.section-head{text-align:center;max-width:640px;margin:0 auto 56px}
+.section-head h2{font-size:clamp(30px,4vw,46px)}
+.section-head.left{text-align:left;margin-left:0}
+
+/* ---------- Services ---------- */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.service{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:44px 34px;text-align:center;transition:.3s}
+.service:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(20,30,45,.12);border-color:transparent}
+.service .ico{width:78px;height:78px;margin:0 auto 22px;border-radius:50%;display:grid;place-items:center;background:rgba(241,90,43,.10);transition:.3s}
+.service:hover .ico{background:var(--orange)}
+.service .ico svg{width:36px;height:36px;fill:var(--orange);transition:.3s}
+.service:hover .ico svg{fill:#fff}
+.service h3{font-size:22px;margin-bottom:12px}
+.service p{color:var(--muted);font-size:15px;margin-bottom:18px}
+.service .more{font-family:var(--display);font-weight:600;font-size:14px;color:var(--orange);display:inline-flex;align-items:center;gap:8px}
+.service .more:hover{gap:12px}
+
+/* ---------- Search by area ---------- */
+.areas-sec{position:relative;background:var(--slate-deep);color:#fff}
+.areas-sec:before{content:"";position:absolute;inset:0;background:url('https://picsum.photos/seed/ypgharea/1920/900') center/cover;opacity:.16}
+.areas-sec .container{position:relative}
+.areas-sec h2{color:#fff}
+.areas-sec .eyebrow{color:var(--orange)}
+.areas{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.area{position:relative;height:330px;border-radius:var(--radius);overflow:hidden;display:flex;align-items:flex-end}
+.area img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:.5s}
+.area:hover img{transform:scale(1.07)}
+.area:before{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,12,16,.85) 0%,rgba(10,12,16,.1) 60%);z-index:1}
+.area .meta{position:relative;z-index:2;padding:26px}
+.area .meta h3{color:#fff;font-size:21px;margin-bottom:2px}
+.area .meta span{color:var(--orange);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px}
+
+/* ---------- Featured listings ---------- */
+.listings{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.3s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(20,30,45,.13);border-color:transparent}
+.card .ph{position:relative;aspect-ratio:4/3;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.card:hover .ph img{transform:scale(1.06)}
+.card .tag{position:absolute;top:14px;left:14px;background:var(--orange);color:#fff;font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.5px;text-transform:uppercase;padding:6px 12px;border-radius:3px;z-index:2}
+.card .fav{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;color:var(--slate);z-index:2}
+.card .body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card .price{font-family:var(--display);font-weight:700;font-size:22px;color:var(--orange)}
+.card .price small{font-weight:600;font-size:13px;color:var(--muted)}
+.card h3{font-size:18px}
+.card .loc{color:var(--muted);font-size:14px;display:flex;align-items:center;gap:7px;margin-top:-2px}
+.card .loc svg{width:14px;height:14px;fill:var(--muted)}
+.card .specs{display:flex;gap:18px;border-top:1px solid var(--line);padding-top:14px;margin-top:auto;color:var(--body);font-size:14px;font-weight:600}
+.card .specs span{display:flex;align-items:center;gap:7px}
+.card .specs svg{width:16px;height:16px;fill:var(--orange)}
+
+/* ---------- Video CTA ---------- */
+.video-sec{position:relative;height:460px;background:url('https://picsum.photos/seed/ypghvideo/1920/900') center/cover fixed;display:grid;place-items:center}
+.video-sec:before{content:"";position:absolute;inset:0;background:rgba(15,20,28,.55)}
+.play{position:relative;width:96px;height:96px;border-radius:50%;background:var(--orange);display:grid;place-items:center;cursor:pointer;box-shadow:0 0 0 0 rgba(241,90,43,.5);animation:pulse 2.4s infinite}
+.play svg{width:34px;height:34px;fill:#fff;margin-left:5px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(241,90,43,.5)}70%{box-shadow:0 0 0 26px rgba(241,90,43,0)}100%{box-shadow:0 0 0 0 rgba(241,90,43,0)}}
+
+/* ---------- Trust logos ---------- */
+.trust{background:var(--bg-soft);padding:56px 0}
+.trust .row{display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.trust .logo{font-family:var(--display);font-weight:700;letter-spacing:1px;color:#9aa0a6;font-size:18px;padding:10px 20px;border:1px solid #dfe2e6;border-radius:4px;filter:grayscale(1);transition:.3s}
+.trust .logo:hover{color:var(--slate);border-color:var(--orange)}
+.trust .cap{text-align:center;color:var(--muted);font-size:13px;margin-top:22px}
+
+/* ---------- List your property CTA ---------- */
+.cta{background:var(--orange);color:#fff;text-align:center;padding:74px 0}
+.cta h2{color:#fff;font-size:clamp(26px,3.4vw,40px);margin-bottom:10px}
+.cta p{opacity:.92;max-width:560px;margin:0 auto 26px}
+
+/* ---------- Footer ---------- */
+.footer{background:var(--slate);color:#aeb4ba;padding:80px 0 0}
+.footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.3fr;gap:40px}
+.footer h4{color:#fff;font-size:17px;margin-bottom:22px}
+.footer .brand{font-size:22px;margin-bottom:16px}
+.footer p{font-size:14.5px;margin-bottom:16px}
+.footer ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.footer ul a{font-size:14.5px}
+.footer ul a:hover{color:var(--orange)}
+.fcontact{list-style:none;display:flex;flex-direction:column;gap:13px;margin-top:6px}
+.fcontact li{display:flex;gap:11px;font-size:14.5px;line-height:1.55}
+.fcontact svg{width:17px;height:17px;fill:var(--orange);flex:none;margin-top:3px}
+.fsocial{display:flex;gap:12px;margin-top:20px}
+.fsocial a{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;transition:.25s}
+.fsocial a:hover{background:var(--orange);border-color:var(--orange)}
+.fsocial svg{width:16px;height:16px;fill:#fff}
+.news{display:flex;border:1px solid rgba(255,255,255,.18);border-radius:var(--radius);overflow:hidden;margin-top:6px}
+.news input{flex:1;border:0;background:transparent;color:#fff;padding:13px 16px;font-family:var(--font);outline:none}
+.news input::placeholder{color:#8b9298}
+.news button{border:0;background:var(--orange);color:#fff;padding:0 18px;cursor:pointer}
+.news button svg{width:16px;height:16px;fill:#fff}
+.copyright{border-top:1px solid rgba(255,255,255,.1);margin-top:60px;padding:22px 0;font-size:13.5px}
+.copyright .container{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.copyright a:hover{color:var(--orange)}
+
+/* ---------- Reveal ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:.7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- Responsive ---------- */
+@media(max-width:1024px){
+  .services,.areas,.listings{grid-template-columns:repeat(2,1fr)}
+  .footer .cols{grid-template-columns:repeat(2,1fr)}
+  .nav ul:not(.submenu){display:none}
+  .burger{display:block}
+  .nav.open ul.mob{display:flex;position:absolute;top:100%;right:24px;left:24px;background:var(--slate);flex-direction:column;padding:14px 20px;border-radius:var(--radius);box-shadow:0 18px 40px rgba(0,0,0,.3)}
+}
+@media(max-width:680px){
+  .section{padding:72px 0}
+  .searchbar{grid-template-columns:1fr}
+  .searchbar .field{border-right:0;border-bottom:1px solid var(--line)}
+  .searchbar .go{padding:18px}
+  .services,.areas,.listings,.footer .cols{grid-template-columns:1fr}
+  .slide .copy.right,.slide .copy.center{text-align:left;margin:0}
+  .slide .copy.right .eyebrow{justify-content:flex-start}
+  .dots{bottom:90px}
+  .topbar .container{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  .slide{transition:opacity .01s}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR (single, real NAP) ===== -->
+<div class="topbar">
+  <div class="container">
+    <ul>
+      <li><svg class="ic" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><a href="mailto:info@yourplacegh.com">info@yourplacegh.com</a></li>
+      <li><svg class="ic" viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/></svg>HN 7, Nii Adjei Nkroma Street, Manet, Teshie - Accra</li>
+    </ul>
+    <ul class="social">
+      <li><a href="https://www.facebook.com/profile.php?id=100063910215831" aria-label="Facebook"><svg class="ic" viewBox="0 0 24 24"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v7h3v-7h2.5l.5-3H14V9z"/></svg></a></li>
+      <li><a href="#" aria-label="X"><svg class="ic" viewBox="0 0 24 24"><path d="M17 3h3l-7 8 8 10h-6l-5-6-5 6H2l8-9L2 3h6l4 5 5-5z"/></svg></a></li>
+      <li><a href="#" aria-label="Instagram"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 0 4.1.1 1 0 1.7.2 2.3.5.6.2 1 .5 1.5 1s.8.9 1 1.5c.3.6.4 1.3.5 2.3 0 1.1.1 1.4.1 4.1s0 3-.1 4.1c0 1-.2 1.7-.5 2.3-.2.6-.5 1-1 1.5s-.9.8-1.5 1c-.6.3-1.3.4-2.3.5-1.1 0-1.4.1-4.1.1s-3 0-4.1-.1c-1 0-1.7-.2-2.3-.5-.6-.2-1-.5-1.5-1s-.8-.9-1-1.5c-.3-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4.1c0-1 .2-1.7.5-2.3.2-.6.5-1 1-1.5s.9-.8 1.5-1c.6-.3 1.3-.4 2.3-.5C8.5 2 8.8 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.2A3.2 3.2 0 1112 8.8a3.2 3.2 0 010 6.4zM17.8 5.9a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z"/></svg></a></li>
+      <li><a href="https://www.linkedin.com/company/yourplace-gh/" aria-label="LinkedIn"><svg class="ic" viewBox="0 0 24 24"><path d="M6.9 8.5H3.6V20h3.3V8.5zM5.2 3.6a1.9 1.9 0 100 3.8 1.9 1.9 0 000-3.8zM20.4 20h-3.3v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V20H9.8V8.5h3.1v1.6h.1c.4-.8 1.5-1.7 3.1-1.7 3.3 0 3.9 2.2 3.9 5V20z"/></svg></a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header" id="header">
+  <div class="container">
+    <a class="brand" href="#"><span class="mark"><span>Y</span></span><b>YOURPLACE</b> <em>GH</em></a>
+    <nav class="nav" id="nav">
+      <ul class="mob">
+        <li><a href="#">About us</a></li>
+        <li class="has-sub"><a href="#listings">Properties</a>
+          <ul class="submenu">
+            <li><a href="#listings">For Sale</a></li>
+            <li><a href="#listings">For Rent</a></li>
+            <li><a href="#listings">Short-stay</a></li>
+          </ul>
+        </li>
+        <li><a href="#areas">Lands</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a class="nav-cta" href="#">Add Listing</a></li>
+      </ul>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="slide active" style="background-image:url('https://picsum.photos/seed/ypgh1/1920/1080')">
+    <div class="inner"><div class="container"><div class="copy">
+      <div class="eyebrow"><svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v8h-4v-5h-4v5H6v-8H3l9-8z"/></svg> Where your place becomes home</div>
+      <h1>Find Your Dream Property</h1>
+      <a class="btn btn-primary" href="#">Make An Enquiry</a>
+    </div></div></div>
+  </div>
+  <div class="slide" style="background-image:url('https://picsum.photos/seed/ypgh2/1920/1080')">
+    <div class="inner"><div class="container"><div class="copy center">
+      <div class="eyebrow"><svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v8h-4v-5h-4v5H6v-8H3l9-8z"/></svg> Real estate made simple</div>
+      <h1>Maximizing Value, Minimizing Hassle</h1>
+      <a class="btn btn-primary" href="#">Make An Enquiry</a>
+    </div></div></div>
+  </div>
+  <div class="slide" style="background-image:url('https://picsum.photos/seed/ypgh3/1920/1080')">
+    <div class="inner"><div class="container"><div class="copy right">
+      <div class="eyebrow"><svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v8h-4v-5h-4v5H6v-8H3l9-8z"/></svg> We care for you</div>
+      <h1>Expert Advice for Solid Foundations</h1>
+      <a class="btn btn-primary" href="#">Make An Enquiry</a>
+    </div></div></div>
+  </div>
+  <div class="hero-nav"><button id="prev" aria-label="Previous">&#8249;</button><button id="next" aria-label="Next">&#8250;</button></div>
+  <div class="dots" id="dots"></div>
+</section>
+
+<!-- ===== SEARCH ===== -->
+<div class="searchwrap"><div class="container">
+  <div class="searchbar">
+    <div class="field"><label>Looking for</label>
+      <select><option>For Sale</option><option>For Rent</option><option>Short-stay</option><option>Land</option></select></div>
+    <div class="field"><label>Location</label>
+      <select><option>Any area</option><option>East Legon</option><option>Cantonments</option><option>Airport Residential</option><option>Teshie - Nungua</option><option>Spintex</option></select></div>
+    <div class="field"><label>Property Type</label>
+      <select><option>Any type</option><option>Apartment</option><option>Townhouse</option><option>Detached house</option><option>Serviced plot</option></select></div>
+    <button class="go">Find Now</button>
+  </div>
+</div></div>
+
+<!-- ===== SERVICES ===== -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Our Services</div>
+      <h2>What we do for you</h2>
+    </div>
+    <div class="services">
+      <div class="service reveal">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v8h-4v-5h-4v5H6v-8H3l9-8z"/></svg></div>
+        <h3>Sales &amp; Lettings</h3>
+        <p>Expertly connecting you with the perfect property for sale and rent in Ghana.</p>
+        <a class="more" href="#">Find a home &rarr;</a>
+      </div>
+      <div class="service reveal">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 13h2v8H3v-8zm4-4h2v12H7V9zm4-4h2v16h-2V5zm4 8h2v8h-2v-8zm4-6h2v14h-2V7z"/></svg></div>
+        <h3>Asset Management</h3>
+        <p>Maximizing your real estate investments through professional asset management.</p>
+        <a class="more" href="#">Learn more &rarr;</a>
+      </div>
+      <div class="service reveal">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v2h20V7L12 2zM4 11v8H2v2h20v-2h-2v-8h-2v8h-3v-8h-2v8h-2v-8H9v8H6v-8H4z"/></svg></div>
+        <h3>Property Development</h3>
+        <p>Guiding your construction projects from concept through to completion.</p>
+        <a class="more" href="#">Start a project &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEARCH BY AREA ===== -->
+<section class="section areas-sec" id="areas">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Area Properties</div>
+      <h2>Find your dream house, search by area</h2>
+    </div>
+    <div class="areas">
+      <a class="area reveal" href="#"><img src="https://picsum.photos/seed/eastlegon/600/700" alt="East Legon"><div class="meta"><h3>East Legon</h3><span>Premium residential</span></div></a>
+      <a class="area reveal" href="#"><img src="https://picsum.photos/seed/cantonments/600/700" alt="Cantonments"><div class="meta"><h3>Cantonments</h3><span>Diplomatic district</span></div></a>
+      <a class="area reveal" href="#"><img src="https://picsum.photos/seed/airportres/600/700" alt="Airport Residential"><div class="meta"><h3>Airport Residential</h3><span>City convenience</span></div></a>
+      <a class="area reveal" href="#"><img src="https://picsum.photos/seed/teshie/600/700" alt="Teshie - Nungua"><div class="meta"><h3>Teshie - Nungua</h3><span>Coastal &amp; growing</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURED LISTINGS ===== -->
+<section class="section soft" id="listings">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow">Properties</div>
+      <h2>Featured listings</h2>
+    </div>
+    <div class="listings">
+      <article class="card reveal">
+        <div class="ph"><span class="tag">For Sale</span><div class="fav">&#9825;</div><img src="https://picsum.photos/seed/listing1/700/520" alt=""></div>
+        <div class="body">
+          <div class="price">GH&#8373;&nbsp;2,850,000</div>
+          <h3>4 Bedroom Townhouse</h3>
+          <div class="loc"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/></svg> East Legon, Accra</div>
+          <div class="specs"><span><svg viewBox="0 0 24 24"><path d="M21 10V7a2 2 0 00-2-2h-5v4h-4V5H5a2 2 0 00-2 2v3a2 2 0 00-2 2v6h2v-2h18v2h2v-6a2 2 0 00-2-2z"/></svg>4</span><span><svg viewBox="0 0 24 24"><path d="M7 7a2 2 0 114 0H7zm-4 5V6a3 3 0 016 0h2a4 4 0 018 0v6h1v2a4 4 0 01-2 3.5V20h-2v-1H6v1H4v-1.5A4 4 0 012 14v-2h1z"/></svg>4</span><span><svg viewBox="0 0 24 24"><path d="M3 3h8v2H5v6H3V3zm10 0h8v8h-2V5h-6V3zM3 13h2v6h6v2H3v-8zm16 0h2v8h-8v-2h6v-6z"/></svg>320 m&sup2;</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="ph"><span class="tag">For Rent</span><div class="fav">&#9825;</div><img src="https://picsum.photos/seed/listing2/700/520" alt=""></div>
+        <div class="body">
+          <div class="price">GH&#8373;&nbsp;12,000<small>&nbsp;/ month</small></div>
+          <h3>Serviced 2 Bedroom Apartment</h3>
+          <div class="loc"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/></svg> Cantonments, Accra</div>
+          <div class="specs"><span><svg viewBox="0 0 24 24"><path d="M21 10V7a2 2 0 00-2-2h-5v4h-4V5H5a2 2 0 00-2 2v3a2 2 0 00-2 2v6h2v-2h18v2h2v-6a2 2 0 00-2-2z"/></svg>2</span><span><svg viewBox="0 0 24 24"><path d="M7 7a2 2 0 114 0H7zm-4 5V6a3 3 0 016 0h2a4 4 0 018 0v6h1v2a4 4 0 01-2 3.5V20h-2v-1H6v1H4v-1.5A4 4 0 012 14v-2h1z"/></svg>2</span><span><svg viewBox="0 0 24 24"><path d="M3 3h8v2H5v6H3V3zm10 0h8v8h-2V5h-6V3zM3 13h2v6h6v2H3v-8zm16 0h2v8h-8v-2h6v-6z"/></svg>110 m&sup2;</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="ph"><span class="tag">For Sale</span><div class="fav">&#9825;</div><img src="https://picsum.photos/seed/listing3/700/520" alt=""></div>
+        <div class="body">
+          <div class="price">GH&#8373;&nbsp;6,500,000</div>
+          <h3>Executive 5 Bedroom Villa</h3>
+          <div class="loc"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/></svg> Trasacco, East Legon</div>
+          <div class="specs"><span><svg viewBox="0 0 24 24"><path d="M21 10V7a2 2 0 00-2-2h-5v4h-4V5H5a2 2 0 00-2 2v3a2 2 0 00-2 2v6h2v-2h18v2h2v-6a2 2 0 00-2-2z"/></svg>5</span><span><svg viewBox="0 0 24 24"><path d="M7 7a2 2 0 114 0H7zm-4 5V6a3 3 0 016 0h2a4 4 0 018 0v6h1v2a4 4 0 01-2 3.5V20h-2v-1H6v1H4v-1.5A4 4 0 012 14v-2h1z"/></svg>6</span><span><svg viewBox="0 0 24 24"><path d="M3 3h8v2H5v6H3V3zm10 0h8v8h-2V5h-6V3zM3 13h2v6h6v2H3v-8zm16 0h2v8h-8v-2h6v-6z"/></svg>540 m&sup2;</span></div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="ph"><span class="tag">Land</span><div class="fav">&#9825;</div><img src="https://picsum.photos/seed/listing4/700/520" alt=""></div>
+        <div class="body">
+          <div class="price">GH&#8373;&nbsp;220,000</div>
+          <h3>Titled Residential Plot</h3>
+          <div class="loc"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/></svg> Oyibi, Greater Accra</div>
+          <div class="specs"><span><svg viewBox="0 0 24 24"><path d="M3 3h8v2H5v6H3V3zm10 0h8v8h-2V5h-6V3zM3 13h2v6h6v2H3v-8zm16 0h2v8h-8v-2h6v-6z"/></svg>1 acre</span><span><svg viewBox="0 0 24 24"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Titled</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEO ===== -->
+<section class="video-sec"><div class="play" id="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></section>
+
+<!-- ===== TRUST LOGOS ===== -->
+<section class="trust">
+  <div class="container">
+    <div class="row">
+      <span class="logo">FNB</span>
+      <span class="logo">Stanbic Bank</span>
+      <span class="logo">GREPA</span>
+      <span class="logo">NAR &middot; ABR</span>
+      <span class="logo">CIPS</span>
+    </div>
+    <p class="cap">Trusted partners and professional accreditations</p>
+  </div>
+</section>
+
+<!-- ===== LIST YOUR PROPERTY ===== -->
+<section class="cta">
+  <div class="container">
+    <h2>List your property with us</h2>
+    <p>We provide exceptional service and make sure your property stands out to the right buyers and tenants.</p>
+    <a class="btn btn-white" href="#">Inquire Now</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container">
+    <div class="cols">
+      <div>
+        <div class="brand" style="color:#fff"><b>YOURPLACE</b> <em style="color:var(--orange)">GH</em></div>
+        <p>Discover top real estate listings in Ghana - buy, rent, and develop with a team that knows Accra street by street.</p>
+        <ul class="fcontact">
+          <li><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/></svg> HN 7, Nii Adjei Nkroma Street, Manet, Teshie - Accra</li>
+          <li><svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.5 15.5 0 006.6 6.6l2.2-2.2a1 1 0 011-.24 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.57 3.6 1 1 0 01-.24 1l-2.23 2.2z"/></svg> 053 960 1097</li>
+          <li><svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg> info@yourplacegh.com</li>
+        </ul>
+        <div class="fsocial">
+          <a href="https://www.facebook.com/profile.php?id=100063910215831" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v7h3v-7h2.5l.5-3H14V9z"/></svg></a>
+          <a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M17 3h3l-7 8 8 10h-6l-5-6-5 6H2l8-9L2 3h6l4 5 5-5z"/></svg></a>
+          <a href="https://www.linkedin.com/company/yourplace-gh/" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M6.9 8.5H3.6V20h3.3V8.5zM5.2 3.6a1.9 1.9 0 100 3.8 1.9 1.9 0 000-3.8zM20.4 20h-3.3v-5.6c0-1.3 0-3-1.9-3s-2.1 1.4-2.1 2.9V20H9.8V8.5h3.1v1.6h.1c.4-.8 1.5-1.7 3.1-1.7 3.3 0 3.9 2.2 3.9 5V20z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul><li><a href="#">About us</a></li><li><a href="#">Blog</a></li><li><a href="#listings">All Listings</a></li><li><a href="#">FAQ</a></li><li><a href="#">Contact us</a></li></ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul><li><a href="#services">Sales &amp; Lettings</a></li><li><a href="#services">Asset Management</a></li><li><a href="#services">Property Development</a></li><li><a href="#">Free Valuation</a></li></ul>
+      </div>
+      <div>
+        <h4>Newsletter</h4>
+        <p>Get new listings and market updates by email. No spam.</p>
+        <form class="news" onsubmit="return false">
+          <input type="email" placeholder="Your email address" aria-label="Email">
+          <button aria-label="Subscribe"><svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg></button>
+        </form>
+      </div>
+    </div>
+    <div class="copyright">
+      <div class="container" style="padding:0">
+        <span>All rights reserved &copy; Your Place GH</span>
+        <span><a href="#">Terms &amp; Conditions</a> &nbsp;&middot;&nbsp; <a href="#">Privacy Policy</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* Hero slider */
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var dots=document.getElementById('dots'),i=0,timer;
+  slides.forEach(function(_,n){var b=document.createElement('button');if(!n)b.className='active';b.onclick=function(){go(n)};dots.appendChild(b);});
+  var dot=[].slice.call(dots.children);
+  function go(n){slides[i].classList.remove('active');dot[i].classList.remove('active');i=(n+slides.length)%slides.length;slides[i].classList.add('active');dot[i].classList.add('active');reset();}
+  function reset(){clearInterval(timer);timer=setInterval(function(){go(i+1)},6000);}
+  document.getElementById('next').onclick=function(){go(i+1)};
+  document.getElementById('prev').onclick=function(){go(i-1)};
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)reset();
+})();
+/* Sticky header */
+var hd=document.getElementById('header');
+addEventListener('scroll',function(){hd.classList.toggle('scrolled',scrollY>120)});
+/* Mobile nav */
+document.getElementById('burger').onclick=function(){document.getElementById('nav').classList.toggle('open')};
+/* Reveal on scroll */
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+/* Video placeholder */
+document.getElementById('play').onclick=function(){alert('Hook this to your intro video (YouTube embed in a lightbox).')};
+</script>
+</body>
+</html>
