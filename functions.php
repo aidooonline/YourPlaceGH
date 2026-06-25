@@ -83,6 +83,11 @@ function ypgh_body_class( $classes ) {
 }
 add_filter( 'body_class', 'ypgh_body_class' );
 
+/**
+ * Hide the WordPress admin bar on the front end (it still shows in wp-admin).
+ */
+add_filter( 'show_admin_bar', '__return_false' );
+
 require YPGH_DIR . '/inc/helpers.php';
 require YPGH_DIR . '/inc/cpt.php';
 require YPGH_DIR . '/inc/meta.php';
