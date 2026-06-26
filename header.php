@@ -64,7 +64,6 @@ $nap = ypgh_nap();
 				echo '</ul>';
 			}
 			?>
-			<a class="add-listing" href="<?php echo esc_url( home_url( '/add-listing/' ) ); ?>">Add Listing</a>
 		</nav>
 
 		<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>

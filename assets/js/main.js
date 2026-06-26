@@ -57,9 +57,22 @@
 
 	/* ---------- Mobile nav ---------- */
 	function initNav() {
-		var burger = document.getElementById('burger'), nav = document.getElementById('nav');
-		if (!burger || !nav) return;
-		burger.addEventListener('click', function () { nav.classList.toggle('open'); });
+		var burger = document.getElementById('burger'),
+			header = document.getElementById('header'),
+			nav = document.getElementById('nav');
+		if (!burger || !header) return;
+		function close() { header.classList.remove('menu-open'); }
+		burger.addEventListener('click', function (e) { e.stopPropagation(); header.classList.toggle('menu-open'); });
+		if (nav) {
+			nav.querySelectorAll('a').forEach(function (a) {
+				a.addEventListener('click', function () { close(); });
+			});
+		}
+		document.addEventListener('click', function (e) {
+			if (header.classList.contains('menu-open') && !header.contains(e.target)) close();
+		});
+		document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+		window.addEventListener('resize', function () { if (window.innerWidth > 1024) close(); });
 	}
 
 	/* ---------- Reveal on scroll ---------- */
