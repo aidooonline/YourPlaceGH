@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$bg  = get_theme_mod( 'ypgh_video_bg', 'https://picsum.photos/seed/ypghvideo/1920/900' );
+$bg  = get_theme_mod( 'ypgh_video_bg', YPGH_URI . '/assets/img/video.jpg' );
 $url = get_theme_mod( 'ypgh_video_url', '' );
 ?>
 <section class="video-sec" style="background-image:url('<?php echo esc_url( $bg ); ?>')">

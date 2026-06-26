@@ -218,6 +218,10 @@ img{max-width:100%;display:block;height:auto}
 
 /* ---------- Inner page header + archive + single ---------- */
 .page-head{background:var(--slate-deep);color:#fff;text-align:center;padding:64px 0}
+.page-head.has-img{position:relative;background-size:cover;background-position:center;padding:112px 0}
+.page-head.has-img:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,26,32,.5),rgba(20,26,32,.84))}
+.page-head.has-img .container{position:relative}
+.page-head-tag{display:inline-block;color:var(--orange);font-weight:700;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
 .page-head h1{color:#fff;font-size:clamp(28px,4vw,44px)}
 .page-head .crumbs{color:#aeb4ba;font-size:14px;margin-top:8px}
 .page-head .crumbs a:hover{color:var(--orange)}

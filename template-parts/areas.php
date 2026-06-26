@@ -31,7 +31,7 @@ $areas = get_terms( array(
 				$img = get_term_meta( $term->term_id, '_ypgh_area_image', true );
 				$tag = get_term_meta( $term->term_id, '_ypgh_area_tag', true );
 				if ( ! $img ) {
-					$img = 'https://picsum.photos/seed/' . sanitize_title( $term->slug ) . '/600/700';
+					$img = YPGH_URI . '/assets/img/hero-2.jpg';
 				}
 				?>
 				<a class="area reveal" href="<?php echo esc_url( get_term_link( $term ) ); ?>">

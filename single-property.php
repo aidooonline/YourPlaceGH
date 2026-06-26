@@ -23,7 +23,7 @@ while ( have_posts() ) :
 	$addr   = ypgh_meta( $id, '_ypgh_address', '' );
 	$lat    = ypgh_meta( $id, '_ypgh_lat', '' );
 	$lng    = ypgh_meta( $id, '_ypgh_lng', '' );
-	$img    = has_post_thumbnail( $id ) ? get_the_post_thumbnail_url( $id, 'full' ) : 'https://picsum.photos/seed/ypgh' . $id . '/1200/800';
+	$img    = has_post_thumbnail( $id ) ? get_the_post_thumbnail_url( $id, 'full' ) : YPGH_URI . '/assets/img/listing.jpg';
 	$phone  = preg_replace( '/\s+/', '', $nap['phone'] );
 	$wa      = preg_replace( '/[^0-9]/', '', $nap['phone'] );
 	if ( $wa && '0' === substr( $wa, 0, 1 ) ) {

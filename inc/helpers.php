@@ -87,7 +87,7 @@ function ypgh_card_image( $post_id ) {
 	if ( has_post_thumbnail( $post_id ) ) {
 		return get_the_post_thumbnail_url( $post_id, 'ypgh-card' );
 	}
-	return 'https://picsum.photos/seed/ypgh' . absint( $post_id ) . '/700/525';
+	return YPGH_URI . '/assets/img/listing.jpg';
 }
 
 /**

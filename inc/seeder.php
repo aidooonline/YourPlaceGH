@@ -62,14 +62,14 @@ function ypgh_run_seed() {
 		ypgh_ensure_term( $t, 'property_type' );
 	}
 	$areas = array(
-		'East Legon'         => array( 'tag' => 'Premium residential', 'seed' => 'eastlegon' ),
-		'Cantonments'        => array( 'tag' => 'Diplomatic district', 'seed' => 'cantonments' ),
-		'Airport Residential'=> array( 'tag' => 'City convenience', 'seed' => 'airportres' ),
-		'Teshie - Nungua'    => array( 'tag' => 'Coastal and growing', 'seed' => 'teshie' ),
+		'East Legon'          => array( 'tag' => 'Premium residential', 'file' => 'east-legon.jpg' ),
+		'Cantonments'         => array( 'tag' => 'Diplomatic district', 'file' => 'cantonments.jpg' ),
+		'Airport Residential' => array( 'tag' => 'City convenience', 'file' => 'airport.jpg' ),
+		'Teshie - Nungua'     => array( 'tag' => 'Coastal and growing', 'file' => 'teshie.jpg' ),
 	);
 	foreach ( $areas as $name => $cfg ) {
 		ypgh_ensure_term( $name, 'property_area', array(
-			'_ypgh_area_image' => 'https://picsum.photos/seed/' . $cfg['seed'] . '/600/700',
+			'_ypgh_area_image' => get_template_directory_uri() . '/assets/img/areas/' . $cfg['file'],
 			'_ypgh_area_tag'   => $cfg['tag'],
 		) );
 	}

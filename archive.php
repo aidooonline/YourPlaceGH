@@ -19,9 +19,19 @@ if ( is_tax() ) {
 	$title = $title ? $title : __( 'Properties', 'yourplacegh' );
 }
 $archive = get_post_type_archive_link( 'property' );
+
+$area_img = '';
+$area_tag = '';
+if ( is_tax( 'property_area' ) && $term ) {
+	$area_img = get_term_meta( $term->term_id, '_ypgh_area_image', true );
+	$area_tag = get_term_meta( $term->term_id, '_ypgh_area_tag', true );
+}
+$head_class = $area_img ? 'page-head has-img' : 'page-head';
+$head_style = $area_img ? ' style="background-image:url(\'' . esc_url( $area_img ) . '\')"' : '';
 ?>
-<div class="page-head">
+<div class="<?php echo esc_attr( $head_class ); ?>"<?php echo $head_style; // phpcs:ignore ?>>
 	<div class="container">
+		<?php if ( $area_tag ) : ?><div class="page-head-tag"><?php echo esc_html( $area_tag ); ?></div><?php endif; ?>
 		<h1><?php echo esc_html( $title ); ?></h1>
 		<div class="crumbs"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a> &middot; <?php if ( is_tax() && $archive ) : ?><a href="<?php echo esc_url( $archive ); ?>">Properties</a> &middot; <?php endif; ?><?php echo esc_html( $title ); ?></div>
 	</div>
