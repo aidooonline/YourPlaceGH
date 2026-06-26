@@ -62,14 +62,14 @@ function ypgh_run_seed() {
 		ypgh_ensure_term( $t, 'property_type' );
 	}
 	$areas = array(
-		'East Legon'          => array( 'tag' => 'Premium residential', 'file' => 'east-legon.jpg' ),
-		'Cantonments'         => array( 'tag' => 'Diplomatic district', 'file' => 'cantonments.jpg' ),
-		'Airport Residential' => array( 'tag' => 'City convenience', 'file' => 'airport.jpg' ),
-		'Teshie - Nungua'     => array( 'tag' => 'Coastal and growing', 'file' => 'teshie.jpg' ),
+		'East Legon'          => array( 'tag' => 'Premium residential', 'image' => 'https://images.pexels.com/photos/31782030/pexels-photo-31782030.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
+		'Cantonments'         => array( 'tag' => 'Diplomatic district', 'image' => 'https://images.pexels.com/photos/18346466/pexels-photo-18346466.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
+		'Airport Residential' => array( 'tag' => 'City convenience', 'image' => 'https://images.pexels.com/photos/31800284/pexels-photo-31800284.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
+		'Teshie - Nungua'     => array( 'tag' => 'Coastal and growing', 'image' => 'https://images.pexels.com/photos/20236312/pexels-photo-20236312.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
 	);
 	foreach ( $areas as $name => $cfg ) {
 		ypgh_ensure_term( $name, 'property_area', array(
-			'_ypgh_area_image' => get_template_directory_uri() . '/assets/img/areas/' . $cfg['file'],
+			'_ypgh_area_image' => $cfg['image'],
 			'_ypgh_area_tag'   => $cfg['tag'],
 		) );
 	}
