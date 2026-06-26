@@ -48,7 +48,7 @@ add_action( 'after_setup_theme', 'ypgh_setup' );
 function ypgh_assets() {
 	wp_enqueue_style(
 		'ypgh-fonts',
-		'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400..700&display=swap',
 		array(),
 		null
 	);
