@@ -12,19 +12,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $slides = array(
 	array(
-		'bg'      => get_theme_mod( 'ypgh_hero1', YPGH_URI . '/assets/img/hero-1.jpg' ),
+		'bg'      => get_theme_mod( 'ypgh_hero1', 'https://picsum.photos/seed/ypgh1/1920/1080' ),
 		'eyebrow' => 'Where your place becomes home',
 		'title'   => 'Find Your Dream Property',
 		'align'   => '',
 	),
 	array(
-		'bg'      => get_theme_mod( 'ypgh_hero2', YPGH_URI . '/assets/img/hero-2.jpg' ),
+		'bg'      => get_theme_mod( 'ypgh_hero2', 'https://picsum.photos/seed/ypgh2/1920/1080' ),
 		'eyebrow' => 'Real estate made simple',
 		'title'   => 'Maximizing Value, Minimizing Hassle',
 		'align'   => 'center',
 	),
 	array(
-		'bg'      => get_theme_mod( 'ypgh_hero3', YPGH_URI . '/assets/img/hero-3.jpg' ),
+		'bg'      => get_theme_mod( 'ypgh_hero3', 'https://picsum.photos/seed/ypgh3/1920/1080' ),
 		'eyebrow' => 'We care for you',
 		'title'   => 'Expert Advice for Solid Foundations',
 		'align'   => 'right',
