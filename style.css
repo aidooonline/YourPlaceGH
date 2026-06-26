@@ -1,7 +1,7 @@
 /*
 Theme Name: YourPlaceGH
 Theme URI: https://yourplacegh.com
-Description: Lean real estate theme for Your Place GH (Accra, Ghana). Reproduces the homepage layout on a locked identity (Bricolage Grotesque display / Inter body, orange on dark slate) with a custom property listing type, search, and RealEstateListing + FAQPage schema. Built without page builders for speed and clean SEO/GEO output.
+Description: Lean real estate theme for Your Place GH (Accra, Ghana). Reproduces the homepage layout on a locked identity (DM Sans throughout, orange on dark slate) with a custom property listing type, search, and RealEstateListing + FAQPage schema. Built without page builders for speed and clean SEO/GEO output.
 Version: 2.0.0
 Requires at least: 6.0
 Requires PHP: 7.4
@@ -19,8 +19,8 @@ Text Domain: yourplacegh
   --muted:#7A7A7A;
   --line:#e8e8e8;
   --bg-soft:#F6F7F9;
-  --display:'Bricolage Grotesque',system-ui,sans-serif;
-  --font:'Bricolage Grotesque',system-ui,sans-serif;
+  --display:'DM Sans',system-ui,sans-serif;
+  --font:'DM Sans',system-ui,sans-serif;
   --container:1200px;
   --radius:4px;
 }
