@@ -1,40 +1,56 @@
 <?php
 /**
- * Services.
+ * What we do: three numbered pillars.
  *
- * @package YourPlaceGH
+ * @package yourplacegh
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-$contact = esc_url( home_url( '/contact/' ) );
+$services_url = ypgh_page_url( 'services', '/services/' );
+$pillars = array(
+	array(
+		'num'   => '01',
+		'title' => 'Brokerage',
+		'body'  => "Buying, selling, and renting across Accra's residential and commercial markets. We represent your interests - not the listing.",
+		'items' => array( 'Residential sales & lettings', 'Land acquisition', 'Commercial leasing', 'Diaspora buyer support', 'Rental management' ),
+		'link'  => $services_url . '#brokerage',
+	),
+	array(
+		'num'   => '02',
+		'title' => 'Real Estate Consulting',
+		'body'  => 'Investment strategy, portfolio decisions, and market intelligence - grounded in a decade of hands-on Accra market experience.',
+		'items' => array( 'Investment advisory', 'Property valuations', 'Market & feasibility reports', 'Developer partnerships', 'Title & due diligence support' ),
+		'link'  => $services_url . '#consulting',
+	),
+	array(
+		'num'   => '03',
+		'title' => 'Construction',
+		'body'  => 'From land to handover. We project-manage builds, source verified contractors, and oversee every phase so your investment is protected.',
+		'items' => array( 'New build project management', 'Renovation & refurbishment', 'Contractor sourcing & oversight', 'Build-to-spec for buyers', 'Progress reporting' ),
+		'link'  => $services_url . '#construction',
+	),
+);
 ?>
-<section class="section" id="services">
-	<div class="container">
-		<div class="section-head reveal">
-			<div class="eyebrow">Our Services</div>
-			<h2>What we do for you</h2>
+<section class="section">
+	<div class="wrap">
+		<div class="sec-head reveal">
+			<div>
+				<span class="eyebrow">What we do</span>
+				<h2>More than an <span class="accent">estate agency</span></h2>
+				<p class="lede">Most agencies stop at the listing. We go further - advising on strategy, navigating due diligence, and delivering the build when that's what the moment calls for. One firm. Full cycle.</p>
+			</div>
+			<a class="sec-link" href="<?php echo esc_url( $services_url ); ?>">All services &rarr;</a>
 		</div>
-		<div class="services">
-			<div class="service reveal">
-				<div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v8h-4v-5h-4v5H6v-8H3l9-8z"/></svg></div>
-				<h3>Sales &amp; Lettings</h3>
-				<p>Expertly connecting you with the perfect property for sale and rent in Ghana.</p>
-				<a class="more" href="<?php echo $contact; ?>">Find a home &rarr;</a>
-			</div>
-			<div class="service reveal">
-				<div class="ico"><svg viewBox="0 0 24 24"><path d="M3 13h2v8H3v-8zm4-4h2v12H7V9zm4-4h2v16h-2V5zm4 8h2v8h-2v-8zm4-6h2v14h-2V7z"/></svg></div>
-				<h3>Asset Management</h3>
-				<p>Maximizing your real estate investments through professional asset management.</p>
-				<a class="more" href="<?php echo $contact; ?>">Learn more &rarr;</a>
-			</div>
-			<div class="service reveal">
-				<div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7v2h20V7L12 2zM4 11v8H2v2h20v-2h-2v-8h-2v8h-3v-8h-2v8h-2v-8H9v8H6v-8H4z"/></svg></div>
-				<h3>Property Development</h3>
-				<p>Guiding your construction projects from concept through to completion.</p>
-				<a class="more" href="<?php echo $contact; ?>">Start a project &rarr;</a>
-			</div>
+		<div class="pillars">
+			<?php foreach ( $pillars as $p ) : ?>
+			<article class="pillar reveal">
+				<div class="pillar-num"><?php echo esc_html( $p['num'] ); ?></div>
+				<h3><a href="<?php echo esc_url( $p['link'] ); ?>"><?php echo esc_html( $p['title'] ); ?></a></h3>
+				<p><?php echo esc_html( $p['body'] ); ?></p>
+				<ul>
+					<?php foreach ( $p['items'] as $it ) : ?><li><?php echo esc_html( $it ); ?></li><?php endforeach; ?>
+				</ul>
+			</article>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>

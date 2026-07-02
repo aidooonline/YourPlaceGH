@@ -1,37 +1,35 @@
 <?php
 /**
- * Generic fallback (blog index, search, etc.).
+ * Generic fallback template.
  *
- * @package YourPlaceGH
+ * @package yourplacegh
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 get_header();
 ?>
-<main class="content-wrap">
-	<?php if ( have_posts() ) : ?>
-		<?php if ( is_home() && ! is_front_page() ) : ?>
-			<h1><?php single_post_title(); ?></h1>
-		<?php elseif ( is_search() ) : ?>
-			<h1><?php printf( esc_html__( 'Search results for: %s', 'yourplacegh' ), esc_html( get_search_query() ) ); ?></h1>
-		<?php endif; ?>
-
-		<?php while ( have_posts() ) : the_post(); ?>
-			<article <?php post_class( 'reveal' ); ?> style="margin-bottom:40px">
-				<h2 style="margin-bottom:8px"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-				<p style="color:var(--muted);font-size:14px"><?php echo esc_html( get_the_date() ); ?></p>
-				<div><?php the_excerpt(); ?></div>
+<div class="page-head"><div class="wrap"><h1><?php echo is_search() ? 'Search results' : esc_html( get_the_title() ); ?></h1></div></div>
+<section class="section">
+	<div class="wrap">
+		<?php
+		if ( have_posts() ) {
+			echo '<div class="posts-grid">';
+			while ( have_posts() ) {
+				the_post();
+				?>
+			<article class="post-card">
+				<div class="pc-body">
+					<div class="pc-meta"><?php echo esc_html( get_the_date() ); ?></div>
+					<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+					<p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 18 ) ); ?></p>
+				</div>
 			</article>
-		<?php endwhile; ?>
-
-		<div class="pagination"><?php echo paginate_links( array( 'prev_text' => '&laquo;', 'next_text' => '&raquo;' ) ); // phpcs:ignore ?></div>
-	<?php else : ?>
-		<h1>Nothing found</h1>
-		<p>No content matched your request. Try the <a href="<?php echo esc_url( home_url( '/' ) ); ?>">homepage</a> or search again.</p>
-	<?php endif; ?>
-</main>
-<?php
-get_footer();
+				<?php
+			}
+			echo '</div>';
+		} else {
+			echo '<p class="lede">Nothing found.</p>';
+		}
+		?>
+	</div>
+</section>
+<?php get_footer(); ?>

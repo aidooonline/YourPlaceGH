@@ -211,7 +211,6 @@ function ypgh_output_schema() {
 	$plugin = ypgh_seo_plugin_active();
 
 	if ( is_front_page() ) {
-		ypgh_print_jsonld( ypgh_faq_schema() );
 		$list = ypgh_featured_itemlist();
 		if ( ! empty( $list ) ) {
 			ypgh_print_jsonld( $list );
@@ -219,6 +218,10 @@ function ypgh_output_schema() {
 		if ( ! $plugin ) {
 			ypgh_print_jsonld( ypgh_org_schema() );
 		}
+	}
+
+	if ( is_page_template( 'templates/template-diaspora.php' ) ) {
+		ypgh_print_jsonld( ypgh_faq_schema() );
 	}
 
 	if ( is_singular( 'property' ) ) {

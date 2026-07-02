@@ -1,24 +1,16 @@
 <?php
 /**
- * 404.
+ * 404 template.
  *
- * @package YourPlaceGH
+ * @package yourplacegh
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
 get_header();
-$archive = get_post_type_archive_link( 'property' );
 ?>
-<main class="content-wrap" style="text-align:center">
-	<h1>Page not found</h1>
-	<p>The page you were looking for is not here. It may have moved, or the link may be out of date.</p>
-	<p style="margin-top:24px">
-		<a class="btn btn-primary" href="<?php echo esc_url( home_url( '/' ) ); ?>">Back to home</a>
-		<?php if ( $archive ) : ?><a class="btn btn-white" href="<?php echo esc_url( $archive ); ?>">Browse listings</a><?php endif; ?>
-	</p>
-</main>
-<?php
-get_footer();
+<div class="error-page">
+	<h1>404</h1>
+	<h2>This page has <span class="accent">moved on.</span></h2>
+	<p class="lede" style="margin:18px auto 34px">The page you're looking for doesn't exist. Let's get you back to somewhere useful.</p>
+	<a class="btn btn-gold" href="<?php echo esc_url( home_url( '/' ) ); ?>">Back to home</a>
+</div>
+<?php get_footer(); ?>

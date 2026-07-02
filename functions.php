@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'YPGH_VERSION', '2.0.0' );
+define( 'YPGH_VERSION', '3.0.0' );
 define( 'YPGH_DIR', get_template_directory() );
 define( 'YPGH_URI', get_template_directory_uri() );
 
@@ -48,7 +48,7 @@ add_action( 'after_setup_theme', 'ypgh_setup' );
 function ypgh_assets() {
 	wp_enqueue_style(
 		'ypgh-fonts',
-		'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400..700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap',
 		array(),
 		null
 	);
@@ -94,3 +94,4 @@ require YPGH_DIR . '/inc/meta.php';
 require YPGH_DIR . '/inc/faq-data.php';
 require YPGH_DIR . '/inc/schema.php';
 require YPGH_DIR . '/inc/seeder.php';
+require YPGH_DIR . '/inc/forms.php';

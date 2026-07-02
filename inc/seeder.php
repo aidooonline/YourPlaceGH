@@ -24,9 +24,9 @@ function ypgh_setup_page() {
 	}
 	echo '<div class="wrap"><h1>YourPlaceGH Setup</h1>';
 	if ( $done ) {
-		echo '<div class="notice notice-success"><p>Setup complete: terms, sample listings, and the primary menu are in place. Permalinks were flushed.</p></div>';
+		echo '<div class="notice notice-success"><p>Setup complete: terms, listings, pages, reading settings, and the primary menu are in place. Permalinks were flushed.</p></div>';
 	}
-	echo '<p>Creates the property taxonomy terms, six sample listings (four featured), and a Primary menu assigned to the header. Safe to run more than once: existing terms and listings are not duplicated.</p>';
+	echo '<p>Creates the property taxonomy terms, six sample listings (three featured), the core pages (Home, Services, Diaspora, About, Contact, Insights) with templates assigned, sets the static front page and posts page, and assigns the Primary menu. Safe to run more than once: nothing is duplicated.</p>';
 	echo '<form method="post">';
 	wp_nonce_field( 'ypgh_seed_action', 'ypgh_seed_nonce' );
 	echo '<p><button class="button button-primary" name="ypgh_seed" value="1">Run setup</button></p>';
@@ -55,17 +55,17 @@ function ypgh_ensure_term( $name, $taxonomy, $meta = array() ) {
 
 function ypgh_run_seed() {
 	// Statuses, types, areas.
-	foreach ( array( 'For Sale', 'For Rent', 'Short-stay', 'Land' ) as $s ) {
+	foreach ( array( 'For Sale', 'For Rent', 'Land' ) as $s ) {
 		ypgh_ensure_term( $s, 'property_status' );
 	}
-	foreach ( array( 'Apartment', 'Townhouse', 'Detached House', 'Serviced Plot' ) as $t ) {
+	foreach ( array( 'House', 'Apartment', 'Land', 'Commercial' ) as $t ) {
 		ypgh_ensure_term( $t, 'property_type' );
 	}
 	$areas = array(
-		'East Legon'          => array( 'tag' => 'Premium residential', 'image' => 'https://images.pexels.com/photos/31782030/pexels-photo-31782030.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
-		'Cantonments'         => array( 'tag' => 'Diplomatic district', 'image' => 'https://images.pexels.com/photos/18346466/pexels-photo-18346466.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
-		'Airport Residential' => array( 'tag' => 'City convenience', 'image' => 'https://images.pexels.com/photos/31800284/pexels-photo-31800284.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
-		'Teshie - Nungua'     => array( 'tag' => 'Coastal and growing', 'image' => 'https://images.pexels.com/photos/20236312/pexels-photo-20236312.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
+		'Pantang'    => array( 'tag' => 'Our home ground', 'image' => 'https://images.pexels.com/photos/18346466/pexels-photo-18346466.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
+		'Oyarifa'    => array( 'tag' => 'Ga East corridor', 'image' => get_template_directory_uri() . '/assets/img/areas/airport.jpg' ),
+		'East Legon' => array( 'tag' => 'Premium residential', 'image' => 'https://images.pexels.com/photos/31782030/pexels-photo-31782030.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
+		'Accra Wide' => array( 'tag' => 'Airport, Cantonments & beyond', 'image' => 'https://images.pexels.com/photos/31800284/pexels-photo-31800284.jpeg?auto=compress&cs=tinysrgb&w=1600' ),
 	);
 	foreach ( $areas as $name => $cfg ) {
 		ypgh_ensure_term( $name, 'property_area', array(
@@ -74,14 +74,14 @@ function ypgh_run_seed() {
 		) );
 	}
 
-	// Sample listings.
+	// Sample listings (from the approved site content).
 	$samples = array(
-		array( 'title' => '4 Bedroom Townhouse', 'status' => 'For Sale', 'type' => 'Townhouse', 'area' => 'East Legon', 'price' => 2850000, 'cur' => 'GHS', 'period' => '', 'beds' => 4, 'baths' => 4, 'size' => '320 m&sup2;', 'featured' => 1 ),
-		array( 'title' => 'Serviced 2 Bedroom Apartment', 'status' => 'For Rent', 'type' => 'Apartment', 'area' => 'Cantonments', 'price' => 12000, 'cur' => 'GHS', 'period' => 'month', 'beds' => 2, 'baths' => 2, 'size' => '110 m&sup2;', 'featured' => 1 ),
-		array( 'title' => 'Executive 5 Bedroom Villa', 'status' => 'For Sale', 'type' => 'Detached House', 'area' => 'East Legon', 'price' => 6500000, 'cur' => 'GHS', 'period' => '', 'beds' => 5, 'baths' => 6, 'size' => '540 m&sup2;', 'featured' => 1 ),
-		array( 'title' => 'Titled Residential Plot', 'status' => 'Land', 'type' => 'Serviced Plot', 'area' => 'Teshie - Nungua', 'price' => 220000, 'cur' => 'GHS', 'period' => '', 'beds' => 0, 'baths' => 0, 'size' => '1 acre', 'featured' => 1 ),
-		array( 'title' => 'Modern 3 Bedroom Apartment', 'status' => 'For Rent', 'type' => 'Apartment', 'area' => 'Airport Residential', 'price' => 9500, 'cur' => 'GHS', 'period' => 'month', 'beds' => 3, 'baths' => 3, 'size' => '160 m&sup2;', 'featured' => 0 ),
-		array( 'title' => 'Family Home with Garden', 'status' => 'For Sale', 'type' => 'Detached House', 'area' => 'Cantonments', 'price' => 4200000, 'cur' => 'GHS', 'period' => '', 'beds' => 4, 'baths' => 5, 'size' => '410 m&sup2;', 'featured' => 0 ),
+		array( 'title' => '4 Bedroom Detached House', 'status' => 'For Sale', 'type' => 'House', 'area' => 'Pantang', 'price' => 185000, 'cur' => 'USD', 'period' => '', 'beds' => 4, 'baths' => 3, 'size' => '260 m&sup2;', 'featured' => 1 ),
+		array( 'title' => '3 Bedroom Furnished Apartment', 'status' => 'For Rent', 'type' => 'Apartment', 'area' => 'East Legon', 'price' => 1800, 'cur' => 'USD', 'period' => 'mo', 'beds' => 3, 'baths' => 2, 'size' => '140 m&sup2;', 'featured' => 1 ),
+		array( 'title' => 'Serviced Plot - 1 Acre', 'status' => 'Land', 'type' => 'Land', 'area' => 'Oyarifa', 'price' => 42000, 'cur' => 'USD', 'period' => '', 'beds' => 0, 'baths' => 0, 'size' => '1 acre', 'featured' => 1 ),
+		array( 'title' => '5 Bedroom Executive Home', 'status' => 'For Sale', 'type' => 'House', 'area' => 'East Legon', 'price' => 520000, 'cur' => 'USD', 'period' => '', 'beds' => 5, 'baths' => 5, 'size' => '480 m&sup2;', 'featured' => 0 ),
+		array( 'title' => '2 Bedroom Apartment', 'status' => 'For Rent', 'type' => 'Apartment', 'area' => 'Accra Wide', 'price' => 950, 'cur' => 'USD', 'period' => 'mo', 'beds' => 2, 'baths' => 2, 'size' => '95 m&sup2;', 'featured' => 0 ),
+		array( 'title' => 'Walled Corner Plot', 'status' => 'Land', 'type' => 'Land', 'area' => 'Pantang', 'price' => 28000, 'cur' => 'USD', 'period' => '', 'beds' => 0, 'baths' => 0, 'size' => '70 x 100 ft', 'featured' => 0 ),
 	);
 
 	foreach ( $samples as $s ) {
@@ -121,18 +121,53 @@ function ypgh_run_seed() {
 		}
 	}
 
+	ypgh_seed_pages();
 	ypgh_seed_menu();
+}
+
+/**
+ * Create the core pages with their templates and set front/posts pages.
+ */
+function ypgh_seed_pages() {
+	$pages = array(
+		'home'     => array( 'Home', '' ),
+		'services' => array( 'Services', 'templates/template-services.php' ),
+		'diaspora' => array( 'Diaspora', 'templates/template-diaspora.php' ),
+		'about'    => array( 'About', 'templates/template-about.php' ),
+		'contact'  => array( 'Contact', 'templates/template-contact.php' ),
+		'insights' => array( 'Insights', '' ),
+	);
+	$ids = array();
+	foreach ( $pages as $slug => $cfg ) {
+		$page = get_page_by_path( $slug );
+		if ( ! $page ) {
+			$page_id = wp_insert_post( array(
+				'post_type'   => 'page',
+				'post_status' => 'publish',
+				'post_title'  => $cfg[0],
+				'post_name'   => $slug,
+			) );
+		} else {
+			$page_id = $page->ID;
+		}
+		if ( $page_id && ! is_wp_error( $page_id ) ) {
+			if ( $cfg[1] ) {
+				update_post_meta( $page_id, '_wp_page_template', $cfg[1] );
+			}
+			$ids[ $slug ] = $page_id;
+		}
+	}
+	if ( ! empty( $ids['home'] ) && ! empty( $ids['insights'] ) ) {
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', $ids['home'] );
+		update_option( 'page_for_posts', $ids['insights'] );
+	}
 }
 
 /**
  * Create and assign the Primary menu if the location is empty.
  */
 function ypgh_seed_menu() {
-	$locations = get_nav_menu_locations();
-	if ( ! empty( $locations['primary'] ) && wp_get_nav_menu_object( $locations['primary'] ) ) {
-		return;
-	}
-
 	$menu_name = 'Primary';
 	$menu      = wp_get_nav_menu_object( $menu_name );
 	if ( ! $menu ) {
@@ -144,13 +179,21 @@ function ypgh_seed_menu() {
 		return;
 	}
 
+	// Rebuild items so the nav always reflects the current site structure.
+	$existing = wp_get_nav_menu_items( $menu_id );
+	if ( $existing ) {
+		foreach ( $existing as $item ) {
+			wp_delete_post( $item->ID, true );
+		}
+	}
+
 	$archive = get_post_type_archive_link( 'property' );
 	$items   = array(
-		array( 'About us', home_url( '/about/' ) ),
 		array( 'Properties', $archive ? $archive : home_url( '/properties/' ) ),
-		array( 'Lands', add_query_arg( 'status', 'land', $archive ? $archive : home_url( '/properties/' ) ) ),
-		array( 'Blog', home_url( '/blog/' ) ),
-		array( 'FAQ', home_url( '/#faq' ) ),
+		array( 'Services', home_url( '/services/' ) ),
+		array( 'Diaspora', home_url( '/diaspora/' ) ),
+		array( 'Insights', home_url( '/insights/' ) ),
+		array( 'About', home_url( '/about/' ) ),
 		array( 'Contact', home_url( '/contact/' ) ),
 	);
 	foreach ( $items as $it ) {

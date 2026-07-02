@@ -1,23 +1,23 @@
 <?php
 /**
- * Archive for properties and property taxonomies.
+ * Property archive and taxonomy pages.
  *
- * @package YourPlaceGH
+ * @package yourplacegh
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 get_header();
 
+global $wp_query;
+
+$title = 'Properties';
+$term  = null;
 if ( is_tax() ) {
 	$term  = get_queried_object();
-	$title = $term ? $term->name : post_type_archive_title( '', false );
-} else {
-	$title = post_type_archive_title( '', false );
-	$title = $title ? $title : __( 'Properties', 'yourplacegh' );
+	$title = $term ? $term->name : $title;
+} elseif ( is_post_type_archive( 'property' ) ) {
+	$title = 'Properties in Accra';
 }
+
 $archive = get_post_type_archive_link( 'property' );
 
 $area_img = '';
@@ -30,32 +30,38 @@ $head_class = $area_img ? 'page-head has-img' : 'page-head';
 $head_style = $area_img ? ' style="background-image:url(\'' . esc_url( $area_img ) . '\')"' : '';
 ?>
 <div class="<?php echo esc_attr( $head_class ); ?>"<?php echo $head_style; // phpcs:ignore ?>>
-	<div class="container">
+	<div class="wrap">
 		<?php if ( $area_tag ) : ?><div class="page-head-tag"><?php echo esc_html( $area_tag ); ?></div><?php endif; ?>
 		<h1><?php echo esc_html( $title ); ?></h1>
 		<div class="crumbs"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a> &middot; <?php if ( is_tax() && $archive ) : ?><a href="<?php echo esc_url( $archive ); ?>">Properties</a> &middot; <?php endif; ?><?php echo esc_html( $title ); ?></div>
 	</div>
 </div>
 
-<div class="container archive-search"><?php ypgh_search_bar(); ?></div>
-
-<div class="container">
-	<?php if ( have_posts() ) : ?>
-		<p class="results-meta"><?php echo esc_html( $GLOBALS['wp_query']->found_posts ); ?> listing(s) found</p>
-		<div class="listings">
-			<?php while ( have_posts() ) : the_post(); ?>
-				<div class="reveal"><?php ypgh_render_property_card( get_the_ID() ); ?></div>
-			<?php endwhile; ?>
-		</div>
-
-		<div class="pagination">
-			<?php echo paginate_links( array( 'mid_size' => 1, 'prev_text' => '&laquo;', 'next_text' => '&raquo;' ) ); // phpcs:ignore ?>
-		</div>
-	<?php else : ?>
-		<p class="empty">No listings match your search. Try widening the filters above.</p>
-	<?php endif; ?>
+<div class="archive-tools">
+	<div class="wrap"><?php ypgh_search_bar(); ?></div>
 </div>
 
-<div style="height:90px"></div>
+<section class="section" style="padding-top:24px">
+	<div class="wrap">
+		<?php if ( have_posts() ) : ?>
+			<p class="results-meta"><?php echo esc_html( (int) $wp_query->found_posts ); ?> listings found</p>
+			<div class="cards-grid">
+				<?php
+				while ( have_posts() ) {
+					the_post();
+					echo '<div class="reveal">';
+					ypgh_render_property_card( get_the_ID() );
+					echo '</div>';
+				}
+				?>
+			</div>
+			<div class="pagination"><?php echo wp_kses_post( paginate_links( array( 'prev_text' => '&larr;', 'next_text' => '&rarr;' ) ) ); ?></div>
+		<?php else : ?>
+			<p class="results-meta" style="margin-top:34px">No listings match your search yet. Try widening the filters, or <a href="<?php echo esc_url( ypgh_page_url( 'contact', '/contact/' ) ); ?>" style="border-bottom:1px solid var(--gold)">tell us what you're looking for</a> - much of our inventory moves before it's listed.</p>
+		<?php endif; ?>
+	</div>
+</section>
+
 <?php
+get_template_part( 'template-parts/cta' );
 get_footer();

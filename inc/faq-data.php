@@ -1,43 +1,39 @@
 <?php
 /**
- * FAQ content. Single source for the visible homepage FAQ and the FAQPage
- * schema, so the structured data always matches what is on the page.
+ * Diaspora FAQ items: used on the Diaspora template and in FAQPage schema.
  *
- * @package YourPlaceGH
+ * @package yourplacegh
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * @return array List of question/answer pairs (plain text answers).
- */
 function ypgh_faq_items() {
 	return array(
 		array(
-			'q' => 'Where in Accra does Your Place GH operate?',
-			'a' => 'We are based in Teshie, Accra and handle sales, rentals, and development across Greater Accra, including East Legon, Cantonments, Airport Residential, Spintex, and the Teshie to Nungua corridor.',
+			'q' => 'Do I need to travel to Ghana to buy?',
+			'a' => 'No. The entire process - search, due diligence, legal, and transaction - can be completed remotely. A well-structured power of attorney covers you at every stage. Most of our diaspora clients complete without ever flying in.',
 		),
 		array(
-			'q' => 'Do you work with buyers in the diaspora?',
-			'a' => 'Yes. A large share of our clients are Ghanaians abroad. We run virtual viewings, verify title and documents on your behalf, and manage the purchase or build from start to finish so you do not need to be in the country.',
+			'q' => 'What is a power of attorney and do I need one?',
+			'a' => 'A POA authorises a trusted person in Ghana to sign documents on your behalf. For remote purchases it is essential. We guide you through the setup process - your local Ghanaian embassy or high commission can notarise the document in your country.',
 		),
 		array(
-			'q' => 'How do I know a property has clean title?',
-			'a' => 'Before we list or recommend a property we confirm the land documentation and ownership. For any purchase we guide you through due diligence at the Lands Commission so you buy with clear, registered title.',
+			'q' => 'How do I transfer money safely from abroad?',
+			'a' => 'We advise on reputable USD-to-GHS transfer routes and work with transactions in both currencies. Most completions are handled in USD via bank-to-bank transfer. We never handle client funds directly - all payments go to solicitor-held accounts.',
 		),
 		array(
-			'q' => 'What fees should I expect when renting?',
-			'a' => 'Rental terms in Accra vary by landlord. We set out the rent, advance period, and any agency fee in writing before you commit, so there are no surprises at signing.',
+			'q' => 'Can Ghanaians living abroad own land in Ghana?',
+			'a' => 'Yes. Ghanaian nationals living abroad retain full property rights in Ghana. Non-citizen buyers can also purchase leasehold interests (up to 50 years, renewable). Our legal partners advise on the most appropriate ownership structure for your situation.',
 		),
 		array(
-			'q' => 'Can you manage a property I already own?',
-			'a' => 'Yes. Our asset management service covers tenant sourcing and screening, rent collection, maintenance, and reporting, whether you hold one unit or a portfolio.',
+			'q' => 'How long does the full process take?',
+			'a' => 'From first call to completion typically takes 6 to 14 weeks depending on the property type and title status. Title registration at the Lands Commission adds 3 to 8 weeks after completion. We give you a realistic timeline upfront and update you throughout.',
 		),
 		array(
-			'q' => 'Do you handle construction and development?',
-			'a' => 'We guide construction projects from concept through to completion, including design coordination, contractor oversight, and budget tracking, so your build stays on time and on cost.',
+			'q' => 'What are your fees for diaspora clients?',
+			'a' => 'Our brokerage fee is charged to the seller (standard industry practice in Ghana). Consulting and due diligence services are priced by scope. We will give you a full cost breakdown - including legal fees, stamp duty, and registration costs - before any commitment.',
 		),
 	);
 }

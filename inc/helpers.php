@@ -100,27 +100,59 @@ function ypgh_render_property_card( $post_id ) {
 	$baths  = (int) ypgh_meta( $post_id, '_ypgh_baths', 0 );
 	$size   = ypgh_meta( $post_id, '_ypgh_size', '' );
 	$link   = get_permalink( $post_id );
+
+	$tag_class = 'tag';
+	if ( $status ) {
+		if ( false !== stripos( $status->slug, 'sale' ) ) {
+			$tag_class .= ' sale';
+		} elseif ( false !== stripos( $status->slug, 'rent' ) ) {
+			$tag_class .= ' rent';
+		}
+	}
 	?>
 	<article class="card">
-		<div class="ph">
-			<?php if ( $status ) : ?><span class="tag"><?php echo esc_html( $status->name ); ?></span><?php endif; ?>
-			<a class="fav" href="<?php echo esc_url( $link ); ?>" aria-label="View listing">&#9825;</a>
-			<a href="<?php echo esc_url( $link ); ?>"><img src="<?php echo esc_url( ypgh_card_image( $post_id ) ); ?>" alt="<?php echo esc_attr( get_the_title( $post_id ) ); ?>" loading="lazy"></a>
-		</div>
-		<div class="body">
+		<a class="card-media" href="<?php echo esc_url( $link ); ?>" style="background-image:url('<?php echo esc_url( ypgh_card_image( $post_id ) ); ?>')" aria-label="<?php echo esc_attr( get_the_title( $post_id ) ); ?>">
+			<?php if ( $status ) : ?><span class="<?php echo esc_attr( $tag_class ); ?>"><?php echo esc_html( $status->name ); ?></span><?php endif; ?>
+		</a>
+		<div class="card-body">
 			<div class="price"><?php echo wp_kses_post( ypgh_price_html( $post_id ) ); ?></div>
 			<h3><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></h3>
-			<?php if ( $area ) : ?>
-			<div class="loc"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 00-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1112 6a2.5 2.5 0 010 5.5z"/></svg> <?php echo esc_html( $area->name ); ?></div>
-			<?php endif; ?>
-			<div class="specs">
-				<?php if ( $beds > 0 ) : ?><span><svg viewBox="0 0 24 24"><path d="M21 10V7a2 2 0 00-2-2h-5v4h-4V5H5a2 2 0 00-2 2v3a2 2 0 00-2 2v6h2v-2h18v2h2v-6a2 2 0 00-2-2z"/></svg><?php echo esc_html( $beds ); ?></span><?php endif; ?>
-				<?php if ( $baths > 0 ) : ?><span><svg viewBox="0 0 24 24"><path d="M7 7a2 2 0 114 0H7zm-4 5V6a3 3 0 016 0h2a4 4 0 018 0v6h1v2a4 4 0 01-2 3.5V20h-2v-1H6v1H4v-1.5A4 4 0 012 14v-2h1z"/></svg><?php echo esc_html( $baths ); ?></span><?php endif; ?>
-				<?php if ( $size ) : ?><span><svg viewBox="0 0 24 24"><path d="M3 3h8v2H5v6H3V3zm10 0h8v8h-2V5h-6V3zM3 13h2v6h6v2H3v-8zm16 0h2v8h-8v-2h6v-6z"/></svg><?php echo esc_html( $size ); ?></span><?php endif; ?>
-			</div>
+			<?php if ( $area ) : ?><div class="loc"><?php echo esc_html( $area->name ); ?></div><?php endif; ?>
+		</div>
+		<div class="card-specs">
+			<?php if ( $beds > 0 ) : ?><span class="spec"><b><?php echo esc_html( $beds ); ?></b> Beds</span><?php endif; ?>
+			<?php if ( $baths > 0 ) : ?><span class="spec"><b><?php echo esc_html( $baths ); ?></b> Baths</span><?php endif; ?>
+			<?php if ( $size ) : ?><span class="spec"><b><?php echo esc_html( $size ); ?></b> Area</span><?php endif; ?>
+			<?php if ( $beds <= 0 && $baths <= 0 && ! $size ) : ?><span class="spec"><b><?php esc_html_e( 'View', 'yourplacegh' ); ?></b> Details</span><?php endif; ?>
 		</div>
 	</article>
 	<?php
+}
+
+/**
+ * Resolve a theme page URL by slug with a fallback path.
+ */
+function ypgh_page_url( $slug, $fallback = '/' ) {
+	$page = get_page_by_path( $slug );
+	if ( $page ) {
+		return get_permalink( $page );
+	}
+	return home_url( $fallback );
+}
+
+/**
+ * Primary menu fallback: core pages + property archive.
+ */
+function ypgh_nav_fallback() {
+	$archive = get_post_type_archive_link( 'property' );
+	echo '<ul>';
+	echo '<li><a href="' . esc_url( $archive ? $archive : home_url( '/' ) ) . '">Properties</a></li>';
+	echo '<li><a href="' . esc_url( ypgh_page_url( 'services', '/services/' ) ) . '">Services</a></li>';
+	echo '<li><a href="' . esc_url( ypgh_page_url( 'diaspora', '/diaspora/' ) ) . '">Diaspora</a></li>';
+	echo '<li><a href="' . esc_url( ypgh_page_url( 'insights', '/insights/' ) ) . '">Insights</a></li>';
+	echo '<li><a href="' . esc_url( ypgh_page_url( 'about', '/about/' ) ) . '">About</a></li>';
+	echo '<li><a href="' . esc_url( ypgh_page_url( 'contact', '/contact/' ) ) . '">Contact</a></li>';
+	echo '</ul>';
 }
 
 /**

@@ -1,14 +1,12 @@
 <?php
 /**
- * Search bar (overlaps hero).
+ * Floating property search bar.
  *
- * @package YourPlaceGH
+ * @package yourplacegh
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 ?>
-<div class="searchwrap"><div class="container">
-	<?php ypgh_search_bar(); ?>
-</div></div>
+<section class="search-sec">
+	<div class="wrap">
+		<?php ypgh_search_bar(); ?>
+	</div>
+</section>
