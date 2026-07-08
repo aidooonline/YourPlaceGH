@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export THEME=/home/$(whoami)/public_html/wp-content/themes/yourplacegh
+    - /bin/mkdir -p $THEME
+    - /bin/cp -R style.css functions.php header.php footer.php index.php page.php searchform.php front-page.php archive-yp_listing.php archive-yp_location.php single-yp_listing.php single-yp_location.php $THEME
+    - /bin/cp -R inc template-parts assets README.md $THEME
