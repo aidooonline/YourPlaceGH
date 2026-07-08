@@ -14,6 +14,30 @@
 		});
 	}
 
+	// Header shadow on scroll.
+	var header = document.querySelector('.site-header');
+	if (header) {
+		var onScroll = function () {
+			header.classList.toggle('is-scrolled', window.scrollY > 8);
+		};
+		onScroll();
+		window.addEventListener('scroll', onScroll, { passive: true });
+	}
+
+	// Scroll reveal + ring fill, respecting reduced motion.
+	var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (!reduce && 'IntersectionObserver' in window) {
+		document.querySelectorAll('.section, .listing-card, .location-card').forEach(function (el) {
+			el.classList.add('reveal');
+		});
+		var io = new IntersectionObserver(function (entries) {
+			entries.forEach(function (e) {
+				if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+			});
+		}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+		document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+	}
+
 	// Archive sort.
 	window.ypghSort = function (value) {
 		var url = new URL(window.location.href);

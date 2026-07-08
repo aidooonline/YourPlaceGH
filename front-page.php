@@ -11,10 +11,25 @@ get_header();
 <section class="hero">
 	<div class="wrap hero-inner">
 		<p class="eyebrow"><?php esc_html_e( 'Property and land, verified', 'ypgh' ); ?></p>
-		<h1 class="hero-title"><?php esc_html_e( 'Find a place in Ghana you can actually trust.', 'ypgh' ); ?></h1>
+		<h1 class="hero-title"><?php esc_html_e( 'Find a place in Ghana you can', 'ypgh' ); ?> <em><?php esc_html_e( 'actually trust', 'ypgh' ); ?></em>.</h1>
 		<p class="hero-sub"><?php esc_html_e( 'Every listing carries title checks, location intelligence, and plain guidance on rent advance law. No land guards, no double sales, no surprises.', 'ypgh' ); ?></p>
 
 		<?php get_template_part( 'template-parts/filter-bar' ); ?>
+
+		<div class="hero-trust">
+			<div class="hero-trust-item">
+				<span class="hero-trust-num">100%</span>
+				<span class="hero-trust-label"><?php esc_html_e( 'title checked before listing', 'ypgh' ); ?></span>
+			</div>
+			<div class="hero-trust-item">
+				<span class="hero-trust-num">6</span>
+				<span class="hero-trust-label"><?php esc_html_e( 'month legal rent advance cap, flagged for you', 'ypgh' ); ?></span>
+			</div>
+			<div class="hero-trust-item">
+				<span class="hero-trust-num">5</span>
+				<span class="hero-trust-label"><?php esc_html_e( 'point location intelligence on every area', 'ypgh' ); ?></span>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -103,6 +118,7 @@ get_header();
 
 <section class="section trust-band">
 	<div class="wrap trust-band-inner">
+		<p class="eyebrow"><?php esc_html_e( 'Why YourPlaceGH', 'ypgh' ); ?></p>
 		<h2><?php esc_html_e( 'The checks nobody else runs', 'ypgh' ); ?></h2>
 		<div class="trust-cols">
 			<div><h3><?php esc_html_e( 'Title sighted', 'ypgh' ); ?></h3><p><?php esc_html_e( 'We confirm the seller can actually sell before a listing goes live.', 'ypgh' ); ?></p></div>

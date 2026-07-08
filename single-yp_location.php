@@ -51,26 +51,20 @@ while ( have_posts() ) :
 		<aside class="location-side">
 			<div class="side-card intel-card">
 				<h2><?php esc_html_e( 'Location intelligence', 'ypgh' ); ?></h2>
-				<ul class="intel-list">
+				<p class="intel-note"><?php esc_html_e( 'Scored 0 to 5 from local reporting and resident feedback.', 'ypgh' ); ?></p>
+				<div class="intel-rings">
 					<?php
-					foreach ( $scores as $key => $label ) :
-						$val = ypgh_loc_meta( $key );
-						if ( '' === $val ) {
-							continue;
-						}
-						$pct = min( 100, max( 0, ( (float) $val / 5 ) * 100 ) );
-						?>
-						<li>
-							<span class="intel-label"><?php echo esc_html( $label ); ?></span>
-							<span class="intel-bar"><span style="width:<?php echo esc_attr( $pct ); ?>%"></span></span>
-							<span class="intel-val"><?php echo esc_html( $val ); ?>/5</span>
-						</li>
-					<?php endforeach; ?>
-				</ul>
+					ypgh_intel_ring( __( 'Safety', 'ypgh' ), ypgh_loc_meta( 'safety' ) );
+					ypgh_intel_ring( __( 'Utilities', 'ypgh' ), ypgh_loc_meta( 'utilities' ) );
+					ypgh_intel_ring( __( 'Road access', 'ypgh' ), ypgh_loc_meta( 'road_access' ) );
+					ypgh_intel_ring( __( 'Flood risk', 'ypgh' ), ypgh_loc_meta( 'flood_risk' ), true );
+					ypgh_intel_ring( __( 'Title risk', 'ypgh' ), ypgh_loc_meta( 'title_risk' ), true );
+					?>
+				</div>
 
 				<?php $rent = ypgh_loc_meta( 'avg_rent' ); ?>
 				<?php if ( '' !== $rent ) : ?>
-					<p class="intel-rent"><?php esc_html_e( 'Typical 2-bed rent', 'ypgh' ); ?>: <strong>GHS <?php echo esc_html( number_format( (float) $rent ) ); ?>/month</strong></p>
+					<p class="intel-rent"><?php esc_html_e( 'Typical 2-bed rent', 'ypgh' ); ?> <strong>GHS <?php echo esc_html( number_format( (float) $rent ) ); ?>/mo</strong></p>
 				<?php endif; ?>
 			</div>
 		</aside>

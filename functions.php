@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'YPGH_VERSION', '2.1.0' );
+define( 'YPGH_VERSION', '2.2.0' );
 define( 'YPGH_DIR', get_template_directory() );
 define( 'YPGH_URI', get_template_directory_uri() );
 
@@ -52,10 +52,10 @@ require YPGH_DIR . '/inc/cache.php';
  * Enqueue styles and scripts.
  */
 function ypgh_assets() {
-	// Fonts: Fraunces (display) + DM Sans (body).
+	// Modern type system: Bricolage Grotesque (display), Inter (UI), DM Mono (data).
 	wp_enqueue_style(
 		'ypgh-fonts',
-		'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap',
 		array(),
 		null
 	);

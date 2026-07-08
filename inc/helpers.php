@@ -120,7 +120,7 @@ function ypgh_whatsapp_link( $post_id = 0 ) {
 }
 
 /**
- * Render a compact stat row (beds, baths, area) for a listing.
+ * Render a compact stat row (beds, baths, area) with icons.
  *
  * @param int $post_id Post ID.
  */
@@ -131,18 +131,53 @@ function ypgh_stat_row( $post_id = 0 ) {
 	$area    = ypgh_meta( 'area', $post_id );
 	$unit    = ypgh_meta( 'area_unit', $post_id );
 
+	$icon_bed  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 17v-5a2 2 0 012-2h16a2 2 0 012 2v5"/><path d="M2 17h20M4 12V8a2 2 0 012-2h4a2 2 0 012 2v4M12 12V8a2 2 0 012-2h4a2 2 0 012 2v4"/></svg>';
+	$icon_bath = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12V6a2 2 0 012-2 2 2 0 012 2M2 12h20v2a5 5 0 01-5 5H7a5 5 0 01-5-5v-2z"/></svg>';
+	$icon_area = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M3 9h18"/></svg>';
+
 	$parts = array();
-	if ( '' !== $beds ) {
-		$parts[] = '<span class="stat"><strong>' . esc_html( $beds ) . '</strong> ' . esc_html__( 'beds', 'ypgh' ) . '</span>';
+	if ( '' !== $beds && '0' !== (string) $beds ) {
+		$parts[] = '<span class="stat">' . $icon_bed . '<strong>' . esc_html( $beds ) . '</strong> ' . esc_html__( 'beds', 'ypgh' ) . '</span>';
 	}
-	if ( '' !== $baths ) {
-		$parts[] = '<span class="stat"><strong>' . esc_html( $baths ) . '</strong> ' . esc_html__( 'baths', 'ypgh' ) . '</span>';
+	if ( '' !== $baths && '0' !== (string) $baths ) {
+		$parts[] = '<span class="stat">' . $icon_bath . '<strong>' . esc_html( $baths ) . '</strong> ' . esc_html__( 'baths', 'ypgh' ) . '</span>';
 	}
 	if ( '' !== $area ) {
-		$parts[] = '<span class="stat"><strong>' . esc_html( $area ) . '</strong> ' . esc_html( $unit ? $unit : 'sqm' ) . '</span>';
+		$parts[] = '<span class="stat">' . $icon_area . '<strong>' . esc_html( $area ) . '</strong> ' . esc_html( $unit ? $unit : 'sqm' ) . '</span>';
 	}
 
 	if ( $parts ) {
 		echo '<div class="listing-stats">' . implode( '', $parts ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
+}
+
+/**
+ * Render a circular intelligence ring for a 0 to 5 score.
+ *
+ * @param string $label     Human label.
+ * @param string $value     Score 0 to 5.
+ * @param bool   $is_risk   If true, higher is worse (uses warn colour).
+ */
+function ypgh_intel_ring( $label, $value, $is_risk = false ) {
+	if ( '' === $value ) {
+		return;
+	}
+	$val   = max( 0, min( 5, (float) $value ) );
+	$pct   = $val / 5;
+	$r     = 30;
+	$circ  = 2 * M_PI * $r;
+	$offset = $circ * ( 1 - $pct );
+	$cls   = $is_risk ? 'intel-ring is-risk' : 'intel-ring';
+	?>
+	<div class="<?php echo esc_attr( $cls ); ?>">
+		<svg viewBox="0 0 78 78" role="img" aria-label="<?php echo esc_attr( $label . ': ' . $val . ' out of 5' ); ?>">
+			<circle class="ring-track" cx="39" cy="39" r="<?php echo esc_attr( $r ); ?>" fill="none" stroke-width="7"></circle>
+			<circle class="ring-fill" cx="39" cy="39" r="<?php echo esc_attr( $r ); ?>" fill="none" stroke-width="7"
+				stroke-dasharray="<?php echo esc_attr( $circ ); ?>"
+				stroke-dashoffset="<?php echo esc_attr( $offset ); ?>"></circle>
+			<text class="ring-num" x="39" y="44" text-anchor="middle"><?php echo esc_html( rtrim( rtrim( number_format( $val, 1 ), '0' ), '.' ) ); ?></text>
+		</svg>
+		<span class="ring-label"><?php echo esc_html( $label ); ?></span>
+	</div>
+	<?php
 }
