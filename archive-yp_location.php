@@ -9,6 +9,7 @@ get_header();
 ?>
 <section class="archive-head">
 	<div class="wrap">
+		<p class="eyebrow"><?php esc_html_e( 'Know before you buy', 'ypgh' ); ?></p>
 		<h1><?php esc_html_e( 'Neighborhood guides', 'ypgh' ); ?></h1>
 		<p class="archive-intro"><?php esc_html_e( 'Honest read-outs on safety, utilities, flood risk, and land title risk for areas across Ghana.', 'ypgh' ); ?></p>
 	</div>

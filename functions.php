@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'YPGH_VERSION', '2.2.0' );
+define( 'YPGH_VERSION', '2.3.0' );
 define( 'YPGH_DIR', get_template_directory() );
 define( 'YPGH_URI', get_template_directory_uri() );
 
@@ -73,7 +73,9 @@ function ypgh_assets() {
 		)
 	);
 
-	$needs_map = is_singular( array( 'yp_listing', 'yp_location' ) ) || is_post_type_archive( 'yp_listing' );
+	$needs_map = is_singular( array( 'yp_listing', 'yp_location' ) )
+		|| is_post_type_archive( 'yp_listing' )
+		|| is_page_template( 'page-contact.php' );
 
 	if ( $needs_map ) {
 		wp_enqueue_style( 'leaflet', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', array(), '1.9.4' );

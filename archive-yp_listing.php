@@ -10,6 +10,7 @@ get_header();
 
 <section class="archive-head">
 	<div class="wrap">
+		<p class="eyebrow"><?php esc_html_e( 'Browse the market', 'ypgh' ); ?></p>
 		<h1><?php esc_html_e( 'Listings', 'ypgh' ); ?></h1>
 		<?php get_template_part( 'template-parts/filter-bar' ); ?>
 	</div>
