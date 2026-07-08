@@ -4,6 +4,20 @@
 (function () {
 	'use strict';
 
+	// FAQ accordion.
+	document.querySelectorAll('.faq-q').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var open = btn.getAttribute('aria-expanded') === 'true';
+			var panel = document.getElementById(btn.getAttribute('aria-controls'));
+			btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+			btn.closest('.faq-item').classList.toggle('is-open', !open);
+			if (panel) {
+				if (open) { panel.setAttribute('hidden', ''); }
+				else { panel.removeAttribute('hidden'); }
+			}
+		});
+	});
+
 	// Mobile nav toggle.
 	var toggle = document.querySelector('.nav-toggle');
 	var nav = document.querySelector('.primary-nav');

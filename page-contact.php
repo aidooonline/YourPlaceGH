@@ -21,11 +21,7 @@ while ( have_posts() ) :
 	<div class="wrap">
 		<p class="eyebrow"><?php esc_html_e( 'Get in touch', 'ypgh' ); ?></p>
 		<h1><?php the_title(); ?></h1>
-		<?php if ( get_the_content() ) : ?>
-			<div class="page-hero-sub"><?php the_content(); ?></div>
-		<?php else : ?>
-			<p class="page-hero-sub"><?php esc_html_e( 'Questions about a listing, a title check, or advertising your property? Reach the team directly, or send a message and we will come back to you.', 'ypgh' ); ?></p>
-		<?php endif; ?>
+		<p class="page-hero-sub"><?php esc_html_e( 'Questions about a listing, a title check, or advertising your property? Reach the team directly, or send a message and we will come back to you.', 'ypgh' ); ?></p>
 	</div>
 </section>
 
