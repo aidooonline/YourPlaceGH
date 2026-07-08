@@ -181,3 +181,56 @@ function ypgh_intel_ring( $label, $value, $is_risk = false ) {
 	</div>
 	<?php
 }
+
+/**
+ * Contextual header (eyebrow, title, intro) for listing archive and taxonomy views.
+ * Works for the post type archive, taxonomy term archives, and query-var filters.
+ *
+ * @return array
+ */
+function ypgh_archive_context() {
+	$ctx = array(
+		'eyebrow' => __( 'Browse the market', 'ypgh' ),
+		'title'   => __( 'Listings', 'ypgh' ),
+		'intro'   => __( 'Every listing is checked before it goes live. Filter by type, area, price, or verified status.', 'ypgh' ),
+	);
+
+	$status = is_tax( 'yp_status' ) ? get_queried_object()->slug : (string) get_query_var( 'yp_status' );
+	$ptype  = is_tax( 'yp_ptype' ) ? get_queried_object()->slug : (string) get_query_var( 'yp_ptype' );
+	$city   = is_tax( 'yp_city' ) ? get_queried_object()->slug : (string) get_query_var( 'yp_city' );
+
+	if ( $status ) {
+		$map = array(
+			'for-sale'  => array( __( 'For sale', 'ypgh' ), __( 'Property for sale in Ghana', 'ypgh' ), __( 'Homes, apartments, and land for sale, each with the title sighted before it reaches you.', 'ypgh' ) ),
+			'for-rent'  => array( __( 'For rent', 'ypgh' ), __( 'Property for rent in Ghana', 'ypgh' ), __( 'Rentals with the six month legal advance cap flagged, so you are never quietly overcharged.', 'ypgh' ) ),
+			'short-let' => array( __( 'Short let', 'ypgh' ), __( 'Short let property in Ghana', 'ypgh' ), __( 'Furnished, serviced places for short stays, ready to move into.', 'ypgh' ) ),
+		);
+		if ( isset( $map[ $status ] ) ) {
+			$ctx['eyebrow'] = $map[ $status ][0];
+			$ctx['title']   = $map[ $status ][1];
+			$ctx['intro']   = $map[ $status ][2];
+		}
+	} elseif ( $ptype ) {
+		if ( 'land' === $ptype ) {
+			$ctx['eyebrow'] = __( 'Land', 'ypgh' );
+			$ctx['title']   = __( 'Land for sale in Ghana', 'ypgh' );
+			$ctx['intro']   = __( 'Registered plots with documentation checked, title sighted, and litigation and land guard risk flagged before you pay.', 'ypgh' );
+		} else {
+			$term           = get_term_by( 'slug', $ptype, 'yp_ptype' );
+			$name           = $term ? $term->name : ucfirst( $ptype );
+			$ctx['eyebrow'] = $name;
+			/* translators: %s: property type name. */
+			$ctx['title']   = sprintf( __( '%s in Ghana', 'ypgh' ), $name );
+			$ctx['intro']   = __( 'Verified listings, filtered to this property type.', 'ypgh' );
+		}
+	} elseif ( $city ) {
+		$term           = get_term_by( 'slug', $city, 'yp_city' );
+		$name           = $term ? $term->name : ucfirst( str_replace( '-', ' ', $city ) );
+		$ctx['eyebrow'] = __( 'Location', 'ypgh' );
+		/* translators: %s: city or area name. */
+		$ctx['title']   = sprintf( __( 'Property in %s', 'ypgh' ), $name );
+		$ctx['intro']   = __( 'Homes, apartments, and land in this area, each verified before listing.', 'ypgh' );
+	}
+
+	return $ctx;
+}

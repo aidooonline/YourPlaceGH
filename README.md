@@ -69,3 +69,21 @@ content will not show once the template is assigned.
 Suggested setup: create Pages named Contact, Services, FAQ, About, Locations,
 Insights and assign the matching template to each. Insights lists standard
 WordPress posts, so publish posts to populate it.
+
+## Listing views and menu routing
+
+The Properties archive and the For Sale / For Rent / Land views all share one
+designed template (template-parts/listing-index.php) with a contextual header.
+
+Point your menu items at these URLs:
+- Properties -> /listings/
+- For Sale   -> /status/for-sale/
+- For Rent   -> /status/for-rent/
+- Lands      -> /type/land/
+- A city     -> /city/east-legon/  (or any yp_city term)
+
+Query-param filtering also works and lands on the same designed template, e.g.
+/listings/?yp_status=for-sale or /listings/?yp_city=spintex&min_price=500000.
+
+If any of these 404, go to Settings > Permalinks and click Save once to flush
+rewrite rules.

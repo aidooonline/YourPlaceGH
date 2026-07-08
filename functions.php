@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'YPGH_VERSION', '2.5.0' );
+define( 'YPGH_VERSION', '2.6.0' );
 define( 'YPGH_DIR', get_template_directory() );
 define( 'YPGH_URI', get_template_directory_uri() );
 
@@ -73,8 +73,11 @@ function ypgh_assets() {
 		)
 	);
 
+	$is_listing_archive = is_post_type_archive( 'yp_listing' )
+		|| is_tax( array( 'yp_status', 'yp_ptype', 'yp_city' ) );
+
 	$needs_map = is_singular( array( 'yp_listing', 'yp_location' ) )
-		|| is_post_type_archive( 'yp_listing' )
+		|| $is_listing_archive
 		|| is_page_template( 'page-contact.php' );
 
 	if ( $needs_map ) {
@@ -83,7 +86,7 @@ function ypgh_assets() {
 		wp_enqueue_script( 'ypgh-map', YPGH_URI . '/assets/js/map.js', array( 'leaflet' ), YPGH_VERSION, true );
 
 		// Archive gets a multi-pin dataset.
-		if ( is_post_type_archive( 'yp_listing' ) ) {
+		if ( $is_listing_archive ) {
 			wp_localize_script( 'ypgh-map', 'ypghPins', ypgh_archive_pins() );
 		}
 	}
