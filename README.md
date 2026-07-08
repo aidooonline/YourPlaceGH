@@ -52,3 +52,20 @@ HN 7, Nii Adjei Nkroma Street, Manet, Teshie, Accra / 053 960 1097 / info@yourpl
 - S6 Performance: transient query caching with invalidation, resource hints
 
 Built from the Master Architect Blueprint (2026).
+
+## Page templates
+
+Assign these to WordPress Pages via Page Attributes > Template. They render their
+own designed content and ignore whatever sits in the page body, so old demo
+content will not show once the template is assigned.
+
+- Contact  (page-contact.php)   contact cards, office map, enquiry form
+- Services (page-services.php)  service suite, how-it-works, CTA
+- FAQ      (page-faq.php)        accordion + FAQPage schema
+- About    (page-about.php)      story, values, facts, CTA
+- Locations(page-locations.php)  neighborhood guides + browse-by-area chips
+- Insights (page-insights.php)   blog-post driven market insights hub
+
+Suggested setup: create Pages named Contact, Services, FAQ, About, Locations,
+Insights and assign the matching template to each. Insights lists standard
+WordPress posts, so publish posts to populate it.
