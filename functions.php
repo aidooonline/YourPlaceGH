@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'YPGH_VERSION', '2.0.0' );
+define( 'YPGH_VERSION', '2.1.0' );
 define( 'YPGH_DIR', get_template_directory() );
 define( 'YPGH_URI', get_template_directory_uri() );
 
@@ -40,9 +40,13 @@ add_action( 'after_setup_theme', 'ypgh_setup' );
  */
 require YPGH_DIR . '/inc/cpt.php';
 require YPGH_DIR . '/inc/meta.php';
+require YPGH_DIR . '/inc/gallery.php';
+require YPGH_DIR . '/inc/listings-extra.php';
 require YPGH_DIR . '/inc/helpers.php';
 require YPGH_DIR . '/inc/query.php';
 require YPGH_DIR . '/inc/schema.php';
+require YPGH_DIR . '/inc/leads.php';
+require YPGH_DIR . '/inc/cache.php';
 
 /**
  * Enqueue styles and scripts.
@@ -59,14 +63,73 @@ function ypgh_assets() {
 	wp_enqueue_style( 'ypgh-main', YPGH_URI . '/assets/css/main.css', array(), YPGH_VERSION );
 	wp_enqueue_script( 'ypgh-main', YPGH_URI . '/assets/js/main.js', array(), YPGH_VERSION, true );
 
-	// Leaflet only where a map is needed.
-	if ( is_singular( array( 'yp_listing', 'yp_location' ) ) || is_post_type_archive( 'yp_listing' ) ) {
+	// Shared config for AJAX (enquiries) and favorites.
+	wp_localize_script(
+		'ypgh-main',
+		'ypghData',
+		array(
+			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'ypgh_lead' ),
+		)
+	);
+
+	$needs_map = is_singular( array( 'yp_listing', 'yp_location' ) ) || is_post_type_archive( 'yp_listing' );
+
+	if ( $needs_map ) {
 		wp_enqueue_style( 'leaflet', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css', array(), '1.9.4' );
 		wp_enqueue_script( 'leaflet', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', array(), '1.9.4', true );
 		wp_enqueue_script( 'ypgh-map', YPGH_URI . '/assets/js/map.js', array( 'leaflet' ), YPGH_VERSION, true );
+
+		// Archive gets a multi-pin dataset.
+		if ( is_post_type_archive( 'yp_listing' ) ) {
+			wp_localize_script( 'ypgh-map', 'ypghPins', ypgh_archive_pins() );
+		}
 	}
 }
 add_action( 'wp_enqueue_scripts', 'ypgh_assets' );
+
+/**
+ * Preconnect to font and tile hosts for faster first paint.
+ */
+function ypgh_resource_hints( $urls, $relation ) {
+	if ( 'preconnect' === $relation ) {
+		$urls[] = 'https://fonts.googleapis.com';
+		$urls[] = array( 'href' => 'https://fonts.gstatic.com', 'crossorigin' );
+	}
+	return $urls;
+}
+add_filter( 'wp_resource_hints', 'ypgh_resource_hints', 10, 2 );
+
+/**
+ * Build a lightweight pin dataset from the current listing archive query.
+ *
+ * @return array
+ */
+function ypgh_archive_pins() {
+	global $wp_query;
+	$pins = array();
+
+	if ( empty( $wp_query->posts ) ) {
+		return $pins;
+	}
+
+	foreach ( $wp_query->posts as $p ) {
+		$lat = get_post_meta( $p->ID, '_yp_lat', true );
+		$lng = get_post_meta( $p->ID, '_yp_lng', true );
+		if ( ! $lat || ! $lng ) {
+			continue;
+		}
+		$pins[] = array(
+			'lat'   => (float) $lat,
+			'lng'   => (float) $lng,
+			'title' => get_the_title( $p->ID ),
+			'price' => ypgh_price( $p->ID ),
+			'url'   => get_permalink( $p->ID ),
+		);
+	}
+
+	return $pins;
+}
 
 /**
  * Flush rewrite rules on activation and seed terms.

@@ -26,9 +26,18 @@ get_header();
 		</div>
 
 		<?php
+		$listing_ids = ypgh_cached_ids(
+			'home_listings',
+			array(
+				'post_type'      => 'yp_listing',
+				'posts_per_page' => 6,
+			)
+		);
 		$listings = new WP_Query(
 			array(
 				'post_type'      => 'yp_listing',
+				'post__in'       => $listing_ids ? $listing_ids : array( 0 ),
+				'orderby'        => 'post__in',
 				'posts_per_page' => 6,
 			)
 		);
@@ -55,9 +64,18 @@ get_header();
 		</div>
 
 		<?php
+		$location_ids = ypgh_cached_ids(
+			'home_locations',
+			array(
+				'post_type'      => 'yp_location',
+				'posts_per_page' => 3,
+			)
+		);
 		$locations = new WP_Query(
 			array(
 				'post_type'      => 'yp_location',
+				'post__in'       => $location_ids ? $location_ids : array( 0 ),
+				'orderby'        => 'post__in',
 				'posts_per_page' => 3,
 			)
 		);

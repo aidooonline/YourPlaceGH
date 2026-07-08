@@ -286,3 +286,67 @@ img { max-width: 100%; height: auto; display: block; }
 @media (prefers-reduced-motion: reduce) {
 	* { animation: none !important; transition: none !important; }
 }
+
+/* ============================================================
+   Sprint 2 to 5 additions
+   ============================================================ */
+
+/* Favorite button on cards */
+.listing-card { position: relative; }
+.fav-btn {
+	position: absolute; top: 12px; right: 12px; z-index: 3;
+	width: 38px; height: 38px; border-radius: 50%; border: 0; cursor: pointer;
+	background: rgba(255,255,255,.92); display: flex; align-items: center; justify-content: center;
+	box-shadow: 0 2px 8px rgba(0,0,0,.15); transition: transform .12s ease;
+}
+.fav-btn:hover { transform: scale(1.08); }
+.fav-btn svg { fill: none; stroke: var(--slate); stroke-width: 2; }
+.fav-btn.is-fav svg { fill: var(--orange); stroke: var(--orange); }
+/* Nudge fav button left when a verified badge is present */
+.card-media ~ .fav-btn { top: 12px; }
+
+/* Gallery thumbnails */
+.gallery-thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin: 14px 0 32px; }
+.gallery-thumb { border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 3 / 2; display: block; }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+.gallery-thumb:hover img { transform: scale(1.05); }
+
+/* Amenities */
+.listing-amenities { margin: 28px 0; }
+.listing-amenities h2 { font-size: 1.4rem; margin: 0 0 12px; }
+.amenity-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.amenity-list li { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 15px; font-size: 14px; color: var(--slate); }
+
+/* Enquiry form */
+.enquiry-divider { display: flex; align-items: center; gap: 12px; margin: 18px 0 14px; color: var(--muted); font-size: 13px; }
+.enquiry-divider::before, .enquiry-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.enquiry-form input, .enquiry-form textarea {
+	width: 100%; font-family: var(--body); font-size: 15px; padding: 10px 12px; margin-bottom: 10px;
+	border: 1.5px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); color: var(--ink);
+}
+.enquiry-form textarea { resize: vertical; }
+.enquiry-status { margin: 10px 0 0; font-size: 14px; }
+.enquiry-status.is-ok { color: var(--ok); }
+.enquiry-status.is-err { color: var(--warn); }
+
+/* Related listings */
+.related-wrap { margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
+.related-head { font-size: 1.6rem; margin: 0 0 24px; }
+
+/* Archive map + toggle */
+.toolbar-right { display: flex; align-items: center; gap: 14px; }
+#archive-map-wrap { margin-bottom: 28px; }
+#archive-map { height: 520px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+.map-empty { padding: 40px; text-align: center; color: var(--muted); }
+[hidden] { display: none !important; }
+
+.screen-reader-text {
+	position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+	overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 720px) {
+	.archive-toolbar { flex-direction: column; align-items: stretch; gap: 12px; }
+	.toolbar-right { justify-content: space-between; }
+	#archive-map { height: 380px; }
+}

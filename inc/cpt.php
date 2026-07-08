@@ -100,6 +100,23 @@ function ypgh_register_taxonomies() {
 		)
 	);
 
+	// Amenities / features (non-hierarchical, tag-like).
+	register_taxonomy(
+		'yp_amenity',
+		'yp_listing',
+		array(
+			'labels'            => array(
+				'name'          => __( 'Amenities', 'ypgh' ),
+				'singular_name' => __( 'Amenity', 'ypgh' ),
+			),
+			'hierarchical'      => false,
+			'public'            => true,
+			'show_admin_column' => true,
+			'show_in_rest'      => true,
+			'rewrite'           => array( 'slug' => 'amenity' ),
+		)
+	);
+
 	// City / area taxonomy shared by listings and locations.
 	register_taxonomy(
 		'yp_city',

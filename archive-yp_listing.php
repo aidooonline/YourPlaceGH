@@ -28,19 +28,26 @@ get_header();
 				);
 				?>
 			</p>
-			<div class="sort">
-				<label for="sort"><?php esc_html_e( 'Sort', 'ypgh' ); ?></label>
-				<select id="sort" onchange="ypghSort(this.value)">
-					<?php $sort = isset( $_GET['sort'] ) ? sanitize_key( wp_unslash( $_GET['sort'] ) ) : ''; // phpcs:ignore ?>
-					<option value=""><?php esc_html_e( 'Newest', 'ypgh' ); ?></option>
-					<option value="price_asc" <?php selected( $sort, 'price_asc' ); ?>><?php esc_html_e( 'Price low to high', 'ypgh' ); ?></option>
-					<option value="price_desc" <?php selected( $sort, 'price_desc' ); ?>><?php esc_html_e( 'Price high to low', 'ypgh' ); ?></option>
-				</select>
+			<div class="toolbar-right">
+				<button type="button" id="view-toggle" class="btn btn-ghost" data-map-label="<?php esc_attr_e( 'Map view', 'ypgh' ); ?>" data-grid-label="<?php esc_attr_e( 'Grid view', 'ypgh' ); ?>"><?php esc_html_e( 'Map view', 'ypgh' ); ?></button>
+				<div class="sort">
+					<label for="sort"><?php esc_html_e( 'Sort', 'ypgh' ); ?></label>
+					<select id="sort" onchange="ypghSort(this.value)">
+						<?php $sort = isset( $_GET['sort'] ) ? sanitize_key( wp_unslash( $_GET['sort'] ) ) : ''; // phpcs:ignore ?>
+						<option value=""><?php esc_html_e( 'Newest', 'ypgh' ); ?></option>
+						<option value="price_asc" <?php selected( $sort, 'price_asc' ); ?>><?php esc_html_e( 'Price low to high', 'ypgh' ); ?></option>
+						<option value="price_desc" <?php selected( $sort, 'price_desc' ); ?>><?php esc_html_e( 'Price high to low', 'ypgh' ); ?></option>
+					</select>
+				</div>
 			</div>
 		</div>
 
 		<?php if ( have_posts() ) : ?>
-			<div class="listing-grid">
+			<div id="archive-map-wrap" hidden>
+				<div id="archive-map"></div>
+			</div>
+
+			<div id="listing-results" class="listing-grid">
 				<?php
 				while ( have_posts() ) :
 					the_post();

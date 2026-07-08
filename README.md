@@ -43,4 +43,12 @@ HN 7, Nii Adjei Nkroma Street, Manet, Teshie, Accra / 053 960 1097 / info@yourpl
 ## Deploy
 `.cpanel.yml` copies theme files into `public_html/wp-content/themes/yourplacegh` on git pull.
 
+## Sprints delivered
+- S1 Foundation: CPTs, taxonomies, meta, trust markers, search/filter, single + archive templates, schema, maps
+- S2 Listings depth: multi-image gallery, amenities taxonomy, auto reference codes, related listings
+- S3 Map search: archive map view with pins and grid/map toggle
+- S4 GEO/SEO: Open Graph + meta description, BreadcrumbList and FAQPage schema
+- S5 Conversion: AJAX enquiry form saving leads as a CPT + admin email, localStorage favorites
+- S6 Performance: transient query caching with invalidation, resource hints
+
 Built from the Master Architect Blueprint (2026).
